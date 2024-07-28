@@ -1,0 +1,187 @@
+@import "../variables";
+
+// Main Content
+.mainContent {
+    position: relative;
+    width: 70%;
+    padding: 30px;
+    margin-left: 5vw;
+    letter-spacing: 0.7px;
+}
+
+// Current Topic Heading
+.currentTopicHeading {
+    font-size: $h1font-size;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+// Articles List
+.articlesList {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+// Article Card
+.articleCard {
+    line-height: 1.4;
+    padding: 20px 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 2px 2px $box-shadow-color;
+}
+
+// Article Box
+.articleBox {
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+// Article Details
+.articleDetails {
+    position: relative;
+    width: 100%;
+}
+
+.titleBox{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: $large-text;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+// Description Box
+.descriptionBox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin: 10px 0;
+    font-size: $small-text;
+}
+
+// Article Image
+.articleImg {
+    position: relative;
+    width: 15%;
+    margin-left: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// Action Box
+.actionBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    i {
+        margin-right: 3px;
+        font-size: 15px;
+    }
+}
+
+// Action Item
+.actionItem {
+    margin-right: 20px;
+    font-size: $small-text;
+    letter-spacing: 0px;
+}
+
+.actionItem i{
+    font-size: 15px !important;
+    color: rgb(118, 115, 115);
+}
+
+// Read Button
+.readBtn {
+    background: linear-gradient(to right, $gradient-dark, $gradient-light);
+    border-radius: 5px;
+    // background-color: lightgray;
+    width: 120px;
+    height: 35px;
+    font-weight: 500;
+}
+
+// Common Classes
+.flexCenter {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+
+//Category bar
+.sidebar{
+    width: 20vw;
+    box-shadow: 0 0 2px 2px $box-shadow-color;
+    height: 100vh;
+    position: fixed;
+    top: 83px;
+    right: 0;
+    border: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    letter-spacing: 1px;
+    z-index: 100;
+}
+
+.sidebarHeading{
+    font-size: $h2font-size;
+    display: flex;
+    align-items: center;
+}
+
+.searchBar{
+    width: 90%;
+    background:linear-gradient(to right, $gradient-dark, $gradient-light);
+    padding: 8px 16px;
+    border: none;
+    border-radius: 25px;
+    font-size: $small-text;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin: 15px 0;
+    box-sizing: border-box;
+}
+
+.searchBar input{
+    background-color: transparent;
+    text-transform: capitalize;
+    position: relative;
+    width: 90%;
+}
+
+.categoriesList{
+    padding: 0 20px;
+    text-transform: capitalize;
+}
+
+.categoriesList li{
+    font-size: $large-text;
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+.moreTopicBtn{
+    border: 1px solid lightgray;
+    border-radius: 18px;
+    padding: 8px 0;
+    width: 220px;
+}
+
+.currentTopic{
+    color: $highlight-text;
+    font-weight: 500;
+}

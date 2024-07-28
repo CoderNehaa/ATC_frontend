@@ -1,0 +1,79 @@
+@import "../../variables";
+
+.detailsOuterPage{
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detailsInnerPage{
+    width: 60vw;
+}
+
+.detailsInnerPage h1{
+    font-size: $h1font-size;
+}
+
+.detailsInnerPage h2{
+    margin-top: 30px;
+    font-size: $h2font-size;
+}
+
+.detailsInnerPage strong{
+    font-size: $large-text;
+    font-weight: 600;
+    display: block;
+    margin-top: 15px;
+    line-height: 1.6;
+}
+
+.detailsInnerPage p{
+    font-size: $large-text;
+    line-height: 1.6;
+}
+
+.conclusion{
+    margin-top: 40px;
+}
+
+.articleImage{
+    margin: 50px 0;
+}
+
+.infoBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 30px;
+}
+
+.iconBox{
+    font-size: $large-text;
+}
+
+.iconBox i{
+    margin-right: 20px;
+}
+
+.authorInfo{
+    display: flex;
+    align-items: center;
+    font-size: $large-text;
+}
+
+.keywords{
+    padding: 0 20px;
+    margin-bottom: 40px;
+}
+
+.keywords span{
+    background: linear-gradient(to right, $gradient-dark, $gradient-light);
+    border: 1px solid $gradient-light;
+    padding: 5px 10px;
+    margin-right: 25px;
+    border-radius: 25px;
+    height: 35px;
+}
+

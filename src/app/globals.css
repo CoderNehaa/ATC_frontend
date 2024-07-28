@@ -1,0 +1,46 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input:focus{
+  outline: none;
+}
+
+.contentPage{
+    padding-top: 80px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #303030;
+}
+
+.scrollBtn {
+    position: fixed;
+    background-color: #d5aed2;
+    color: black;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    font-size: x-large;
+    right: 40px;
+    bottom: 40px;
+    z-index: 50;
+}
+
+
+.flexColCenter{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+

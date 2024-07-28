@@ -1,0 +1,91 @@
+@import "../variables";
+
+.aboutPage section{
+    height: 100vh;
+    padding: 50px 100px;
+    text-align: center;
+}
+
+.aboutPage section:nth-child(odd){
+    background-color: white;
+}
+
+
+.aboutHeading{
+    font-size: $h1font-size;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.aboutPage h2{
+    font-size: $h2font-size;
+    margin-bottom: 25px;
+}
+
+.aboutPage p{
+    font-size: $large-text;
+}
+
+.bg{
+    position: relative;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bgBox{
+    border: 8px solid $primary-color;
+    height: 250px;
+    width: 250px;
+    border-radius: 35px;
+    transform: rotate(45deg);
+}
+
+
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: relative;
+    height: 60%;
+}
+
+.ctaBtn{
+    background: linear-gradient(to right, $gradient-dark, $gradient-light);
+    border-radius: 5px;
+    font-weight: 500;
+    padding: 10px 30px;
+    font-size: $large-text;
+    border-radius: 25px;
+    margin-top: 40px;
+    color: rgb(72, 70, 70);
+}
+
+.ctaBtn i{
+    font-size: $large-text;
+}
+
+.socialApps{
+    margin-top: 25px;
+}
+
+.socialApps p{
+    font-size: $small-text;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.socialApps span{
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 0.5px solid lightgray;
+    padding: 8px 10px;
+    box-shadow: 0 0 1px 1px $box-shadow-color;
+}
+
+
+
+
+
+
