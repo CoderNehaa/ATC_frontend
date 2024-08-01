@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import styles from "./navbar.module.scss";
+import styles from "../styles/navbar.module.scss";
 import Link from "next/link";
 import Signin from "./SignIn";
 import Signup from "./Signup";

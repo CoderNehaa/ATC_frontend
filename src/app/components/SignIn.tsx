@@ -1,4 +1,4 @@
-import styles from "./auth.module.scss";
+import styles from "../styles/auth.module.scss";
 import lock from "../../assets/lock.png";
 import google from "../../assets/google.jpeg";
 import facebook from "../../assets/facebook.png";

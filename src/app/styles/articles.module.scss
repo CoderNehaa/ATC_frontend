@@ -1,4 +1,4 @@
-@import "../variables";
+@import "./variables";
 
 // Main Content
 .mainContent {
@@ -181,7 +181,7 @@
     width: 220px;
 }
 
-.currentTopic{
+.currentKw{
     color: $highlight-text;
     font-weight: 500;
 }

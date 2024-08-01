@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import styles from "./articles.module.scss";
+import styles from "../styles/articles.module.scss";
+import useStore from "@/store/store";
+import { Keyword } from "@/store/interface";
 
 interface SidebarProps {
-  currentTopic: any;
-  setCurrentTopic: (value: boolean) => void;
-  arr:Array<any>
+  currentKw: any;
+  setCurrentKw: (value: Keyword) => void;
 }
 
 const CategoryBar: React.FC<SidebarProps> = ({
-  currentTopic,
-  setCurrentTopic,
-  arr
+  currentKw,
+  setCurrentKw
 }) => {
+ const {keywords} = useStore();
+  console.log(keywords);
+  
 
   return (
     <div className={styles.sidebar}>
@@ -27,13 +30,14 @@ const CategoryBar: React.FC<SidebarProps> = ({
       </div>
 
       <ul className={styles.categoriesList}>
-        {arr.map((category, index) => (
+        <li className={currentKw ? "" : styles.currentKw}>Trending</li>
+        {keywords.map((keyword, index) => (
           <li
             key={index}
-            className={currentTopic? currentTopic.id===category.id?styles.currentTopic:"":""}
-            onClick={() => setCurrentTopic(category)}
+            className={currentKw ? (currentKw.id === keyword.id ? styles.currentKw : "" ) : ""}
+            onClick={() => setCurrentKw(keyword)}
           >
-            {category.name}
+            {keyword.keywordName}
           </li>
         ))}
         <button className={styles.moreTopicBtn}>+ 20 more topics</button>

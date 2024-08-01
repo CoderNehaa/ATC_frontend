@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "./about.module.scss";
+import styles from "../styles/about.module.scss";
 import author from "../../assets/author.webp";
 
 export default function About() {

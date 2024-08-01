@@ -1,18 +1,16 @@
 import Image from "next/image";
-import styles from "./details.module.scss";
+import styles from "../styles/details.module.scss";
 import trading from "../../../assets/trading.jpeg";
 import author from "../../../assets/author.webp";
+import React from "react";
+import { Article } from "@/store/interface";
 
-function ArticleDetails() {
-  const article: any = {
-    title:
-      "Unveiling the Secrets of the Indian Stock Market: A Comprehensive Guide for Beginners",
-    authorName: "John Doe",
-    articleDate: "10 July, 2024",
-    keywords: ["trading", "stock market", "indian stock market", "investing"],
-    likes: 24,
-    comments: 6,
-  };
+interface componentProps{
+  article:Article
+}
+
+export const ArticleDetails:React.FC<componentProps> = ({article}) => {
+  const date = new Date(article.articleDate).toLocaleDateString();
 
   return (
     <div className={styles.detailsOuterPage}>
@@ -20,12 +18,12 @@ function ArticleDetails() {
         <div className={styles.infoBox}>
           <div className={styles.authorInfo}>
             <Image src={author} alt="authorName" height={30} width={30} />
-            <span className="ml-3 mt-1">{article.authorName}</span>
+            <span className="ml-3 mt-1">{article.username}</span>
           </div>
 
           <div className={styles.iconBox}>
             <i className="fa-solid fa-feather"></i>
-            <span className="italic mr-6">{article.articleDate}</span>
+            <span className="italic mr-6">{date}</span>
             <i className="fa-regular fa-bookmark"></i>
             <i className="fa-solid fa-share-nodes"></i>
           </div>
@@ -36,9 +34,9 @@ function ArticleDetails() {
           <Image src={trading} alt="Article Image" />
         </div>
         <div className={styles.keywords}>
-          {article.keywords.map((keyword: string, index: number) => (
+          {article.keywords?article.keywords.map((keyword: string, index: number) => (
             <span key={index}>{keyword}</span>
-          ))}
+          )):null}
         </div>
 
         <div className={styles.articleBody}>

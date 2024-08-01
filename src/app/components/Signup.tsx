@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import styles from "./auth.module.scss";
+import styles from "../styles/auth.module.scss";
 
 interface SignupProps {
   setShowSignupForm: (value: boolean) => void;
