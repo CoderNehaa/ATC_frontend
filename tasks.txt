@@ -1,0 +1,3 @@
+1. Active page in navbar
+2. auth api integration
+3. sending every status 200 from back-end

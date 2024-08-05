@@ -1,8 +1,7 @@
 import Image from "next/image"
 
-import author from "../../assets/author.webp";
 import hardik from "../../assets/hardik.jpeg";
-import styles from "../styles/details.module.scss";
+import styles from "../styles/articles.module.scss";
 import Link from "next/link";
 import { Article } from "../../store/interface";
 import React from "react";
@@ -13,6 +12,9 @@ interface cardProps{
 
 export const ArticleCard:React.FC<cardProps> = ({article}) => {
   const articleDate = new Date(article.articleDate).toDateString();
+  const min = 1000000;
+  const max= 9999999;
+  const randomNumber = Math.floor(Math.random() * (max-min+1)).toFixed(0);
 
     return (
         <div className={`${styles.articleCard} flex`}>
@@ -51,14 +53,14 @@ export const ArticleCard:React.FC<cardProps> = ({article}) => {
                 <i className="fa-solid fa-bookmark"></i>
               </span>
             </div>
-            <Link href={`/article-details/${article.id}`}>
+            <Link href={`/articles/article-details?r=${randomNumber}&a=${article.id}`}>
               <button className={styles.readBtn}>Read Full</button>
             </Link>
           </div>
         </div>
         <div className={`${styles.articleImg}`}>
           <Image
-            src={article.articleImage}
+            src={hardik}
             width={100}
             height={100}
             alt={article.title}

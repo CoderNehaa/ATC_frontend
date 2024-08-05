@@ -61,3 +61,30 @@
     margin-left: 5px;
 }
 
+.userNavItems{
+    position: absolute;
+    right: 25px;
+    top: 70px;
+    background-color: white;
+    border: 1px solid $box-shadow-color;
+    padding: 15px;
+    font-size: $small-text;
+    display: flex;
+    justify-content: center;
+}
+
+.userNavItems li{
+    padding: 0 8px;
+    text-wrap: nowrap !important;
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-weight: 400;
+}
+
+.userNavItems i {
+    margin-right: 15px;
+}
+

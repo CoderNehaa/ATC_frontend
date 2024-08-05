@@ -8,8 +8,7 @@ export interface Article{
     content:string,
     articleDate:Date,
     likes:number,
-    comments?:number,
-    commentsList?:[],
+    comments?:[],
     keywords?:[],
     profilePicture:string,
     articleImage:string
@@ -22,7 +21,8 @@ export interface User{
     password?:string,
     socialId?:string,
     provider:string,
-    totalArticles:number
+    totalArticles:number,
+    profilePicture:string
 }
 
 export interface Keyword{

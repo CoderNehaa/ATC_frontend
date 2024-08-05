@@ -19,6 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="ATC"></meta>
+        <title>ATC</title>
       <script src="https://kit.fontawesome.com/da6c19888d.js" crossOrigin="anonymous"></script>
       </head>
       <body className={inter.className}>

@@ -15,9 +15,9 @@
 .signinBox {
   z-index: 700;
   width: 50vw;
-  height: 60vh;
+  height: 70vh;
   left: 25vw;
-  top: 20vh;
+  top: 15vh;
   padding: 25px;
   position: absolute;
   background-color: white;
@@ -99,7 +99,7 @@
 
 
 .or{
-    margin-bottom: 4px 0;
+    margin: 3px 0;
     text-transform: lowercase;
     font-size: $small-text;
 }
@@ -142,4 +142,75 @@
   padding-left: 8px;
   border-left: 2px solid lightgray;
 }
+
+//signup
+.passwordRulesBox{
+  font-size: small;
+  background-color: white;
+  box-shadow: 0 0 1px 1px $box-shadow-color;
+  padding: 5px 10px;
+  border-radius: 5px;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+}
+
+.passwordRulesBox span{
+  font-weight: 700;
+}
+
+.signupBox{
+  z-index: 700;
+  width: 64vw;
+  height: 60vh;
+  left: 15vw;
+  top: 20vh;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 0 25px 2px rgb(208, 206, 206);
+  display: flex;
+}
+
+.signupBox .left{
+  position: relative;
+  width: 50%;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signupBox .right{
+  position: relative;
+  width: 50%;
+  padding: 0 70px;
+  background: linear-gradient(to right, $gradient-light, $gradient-dark );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.socialLoginHeading{
+  font-size: $large-text;
+  font-weight: 500;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}
+
+.signupAuthBtn{
+    color: black;
+    padding: 5px 16px;
+    display: flex;
+    width: 320px;
+    border-radius: 20px;
+    justify-content: start;
+    align-items: center;
+    font-size: $large-text;
+    font-weight: 300;
+    box-shadow: 0 0 1px 1px $gradient-light;
+    background-color: white !important;
+}
+
 
