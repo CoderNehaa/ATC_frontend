@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import styles from "../styles/auth.module.scss";
+import styles from "@/styles/auth.module.scss";
 import usePrivateStore from "@/store/privateStore";
-import google from "../../assets/google.jpeg"
-import facebook from "../../assets/facebook.png"
+import google from "@/assets/google.jpeg"
+import facebook from "@/assets/facebook.png"
 
 interface SignupProps {
   setShowSignupForm: (value: boolean) => void;

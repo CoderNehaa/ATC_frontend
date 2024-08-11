@@ -1,10 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
 import usePublicStore from "@/store/publicStore";
-import styles from "../styles/articles.module.scss";
+import styles from "@/styles/articles.module.scss";
 
-import Sidebar from "../components/CategoryBar";
-import { ArticleCard } from "../components/ArticleCard";
+import Sidebar from "@/custom-components/articles/CategoryBar";
+import { ArticleCard } from "@/custom-components/articles/ArticleCard";
 import { Keyword } from "@/store/interface";
 
 export default function AllArticles() {

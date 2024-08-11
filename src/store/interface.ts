@@ -18,6 +18,7 @@ export interface User{
     id?:number,
     username:string,
     email:string,
+    bio:string,
     password?:string,
     socialId?:string,
     provider:string,
@@ -29,3 +30,20 @@ export interface Keyword{
     id:number,
     keywordName:string
 }
+
+export interface MessageInterface{
+    id:number,
+    chatId:number,
+    senderId:number,
+    message:string,
+    sentAt:Date
+  }
+  
+  export interface ChatInterface{
+      chatId:number,
+      dp:string,
+      name:string,
+      createdAt:Date,
+      type:string
+  }
+  

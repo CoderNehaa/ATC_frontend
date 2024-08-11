@@ -47,3 +47,4 @@ const Avatar: React.FC<{letter:string}> = ({letter}) => {
 };
 
 export default Avatar;
+

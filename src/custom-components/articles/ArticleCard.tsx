@@ -1,9 +1,9 @@
 import Image from "next/image"
 
-import hardik from "../../assets/hardik.jpeg";
-import styles from "../styles/articles.module.scss";
+import hardik from "@/assets/hardik.jpeg";
+import styles from "@/styles/articles.module.scss";
 import Link from "next/link";
-import { Article } from "../../store/interface";
+import { Article } from "@/store/interface";
 import React from "react";
 
 interface cardProps{

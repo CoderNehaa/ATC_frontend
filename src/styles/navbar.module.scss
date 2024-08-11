@@ -2,14 +2,14 @@
 
 .navbar {
     letter-spacing: 0.8px;
-    padding: 10px 20px;
+    padding: 10px 30px;
     position: fixed;
     width: 100vw;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     height: 80px;
-    z-index: 200;
+    z-index: 1;
     box-shadow: 0 0 2px 2px lightgray;
     background-color: white;
     // background: linear-gradient(to right, #D5ADE2, #D5C3DB);

@@ -1,7 +1,7 @@
-import styles from "../styles/auth.module.scss";
-import lock from "../../assets/lock.png";
-import google from "../../assets/google.jpeg";
-import facebook from "../../assets/facebook.png";
+import styles from "@/styles/auth.module.scss";
+import lock from "@/assets/lock.png";
+import google from "@/assets/google.jpeg";
+import facebook from "@/assets/facebook.png";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import usePrivateStore from "@/store/privateStore";

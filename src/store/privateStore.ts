@@ -7,6 +7,9 @@ import axios from "axios";
 interface PrivateStore {
   users: User[];
   currentUser: User | null;
+  favoriteArticles:[],
+  chats:[],
+  getChats:() => Promise<void>;
   setCurrentUser: (user: User | null) => Promise<void>;
   getUserByUserId: (userId: number) => Promise<any>;
   signup: (username: string, email: string, password: string) => Promise<any>;
@@ -15,15 +18,27 @@ interface PrivateStore {
   handleGoogleLogin: () => void;
   handleFbLogin: () => void;
   validateUser: () => Promise<void>;
+  logout: () => Promise<void>;
+  getUsersList:() => Promise<void>;
+  createChat:(chatData:any) => Promise<void>;
+  getMessages: (chatId:number) => any
 }
 
 const usePrivateStore = create<PrivateStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       users: [],
       currentUser: null,
+      favoriteArticles:[],
+      chats:[],
       setCurrentUser: async (user: User | null) => {
         set({ currentUser: user });
+      },
+      getUsersList: async () => {
+        const {data}= await axios.get(`${config.apiUrl}/users/all`, {withCredentials:true});
+        if(data.result){
+          set({users:data.data})
+        }
       },
       getUserByUserId: async (userId: number) => {
         try {
@@ -109,13 +124,57 @@ const usePrivateStore = create<PrivateStore>()(
         const response = await axios.get(
           `${config.apiUrl}/users/getvaliduser`,
           { withCredentials: true }
-        );
+        );                
         if (response.data.result) {
           set({ currentUser: response.data.user });
         } else {
-          window.alert("Your session has expired! Please login again");
+          const {currentUser} = get()
+          if(currentUser){
+            window.alert("Your session has expired! Please login again");
+            set({
+              users: [],
+              chats:[],
+              currentUser: null,
+              favoriteArticles:[]
+            })
+          }
         }
       },
+      logout: async() : Promise<void>=>{
+        //destroy session and call logout API
+        set({
+          users: [],
+          currentUser: null,
+          favoriteArticles:[],
+          chats:[]
+        })
+        const {data} = await axios.get(`${config.apiUrl}/users/logout`, {
+          withCredentials:true
+        });
+        window.alert(data.message);
+      },
+      getChats:async () => {
+        const response = await axios.get(`${config.apiUrl}/chats/`, {withCredentials:true});        
+        set({chats:response.data.data})
+      },
+      createChat:async(chatData:any) => {
+        const {data} = await axios.post(`${config.apiUrl}/chats/`, {...chatData}, {withCredentials:true});
+        if(data.result){
+          const {getChats} = get();
+          getChats();
+        }
+        window.alert(data.message);
+      },
+      getMessages:async (chatId:number) =>{
+        const {data} = await axios.get(`${config.apiUrl}/chats/messages/all/${chatId}`, {
+          withCredentials:true
+        });
+        if(data.result){
+          return data.data;
+        } else {
+          window.alert(data.message);
+        }
+      }
     }),
     {
       name: "user-storage",

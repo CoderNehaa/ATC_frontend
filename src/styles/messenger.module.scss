@@ -1,0 +1,39 @@
+@import './variables';
+
+.messengerPage{
+    width: 100vw;
+    height: 92vh;
+    display: flex;
+}
+
+
+.left{
+    position: relative;
+    width: 30%;
+    height: 100%;
+    border-right: 2px solid lightgray;
+    padding: 10px;
+}
+
+.left h2{
+    font-size: $large-text;
+    margin-bottom: 25px;
+}
+
+.chatCard{
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    align-items: start;
+    border-bottom: 1px solid lightgray;
+}
+.right{
+    position: relative;
+    width: 70%;
+    height: 100%;
+}
+
+.chatHeading{
+
+}

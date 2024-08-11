@@ -1,3 +1,8 @@
 1. Active page in navbar
 2. auth api integration
-3. sending every status 200 from back-end
+3. sending every status 200 from back-end?
+4. store bgcolor in session from avatar component
+5. search articles api in req.query from back-end
+6. diff bw char and varchar and string in mysql
+
+

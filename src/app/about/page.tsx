@@ -1,6 +1,4 @@
-import Image from "next/image";
-import styles from "../styles/about.module.scss";
-import author from "../../assets/author.webp";
+import styles from "@/styles/about.module.scss";
 
 export default function About() {
   return (

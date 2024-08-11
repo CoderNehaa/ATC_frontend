@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "../styles/articles.module.scss";
+import styles from "../../styles/articles.module.scss";
 import usePublicStore from "@/store/publicStore";
 import { Keyword } from "@/store/interface";
 
