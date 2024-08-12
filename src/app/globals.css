@@ -68,13 +68,13 @@
   }
 }
 
-
-
 input:focus{
   outline: none;
 }
 
 .contentPage{
+  height: 100vh;
+  top: 0;
   padding-top: 80px;
 }
 

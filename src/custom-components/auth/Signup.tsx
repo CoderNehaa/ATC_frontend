@@ -3,19 +3,13 @@ import { useState } from "react";
 import Image from "next/image";
 import styles from "@/styles/auth.module.scss";
 import usePrivateStore from "@/store/privateStore";
+import usePublicStore from "@/store/publicStore";
 import google from "@/assets/google.jpeg"
 import facebook from "@/assets/facebook.png"
 
-interface SignupProps {
-  setShowSignupForm: (value: boolean) => void;
-  setShowSigninForm: (value: boolean) => void;
-}
-
-const Signup: React.FC<SignupProps> = ({
-  setShowSignupForm,
-  setShowSigninForm,
-}) => {
+const Signup = () => {
   const { signup, handleFbLogin, handleGoogleLogin } = usePrivateStore();
+  const {setShowSigninForm, setShowSignupForm} = usePublicStore();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");

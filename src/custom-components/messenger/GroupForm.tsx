@@ -44,6 +44,8 @@ const GroupForm:React.FC<Props> = ({setFormData}) => {
         onChange={(e) => setFormData((prev:any) => ({...prev, name:e.target.value}))}/>
         <span className="text-sm text-gray-600">Group Name will be visible to all group members.</span>
     </div>
+
+    
   </div>
   )
 }

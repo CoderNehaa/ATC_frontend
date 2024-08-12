@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/custom-components/navbar/Navbar";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -28,6 +31,7 @@ export default function RootLayout({
           <div className="contentPage">
             {children}
           </div>
+          <ToastContainer autoClose={2000} newestOnTop={true}/>
         </div>
       </body>
     </html>

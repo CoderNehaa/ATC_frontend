@@ -5,12 +5,34 @@ import styles from "@/styles/articles.module.scss";
 import Link from "next/link";
 import { Article } from "@/store/interface";
 import React from "react";
+import usePrivateStore from "@/store/privateStore";
+import usePublicStore from "@/store/publicStore";
+import user from "@/assets/author.png";
 
 interface cardProps{
   article:Article
 }
 
 export const ArticleCard:React.FC<cardProps> = ({article}) => {
+  const {setShowSigninForm} = usePublicStore();
+  const {currentUser} = usePrivateStore();
+  
+  function handleShare(){
+    if(!currentUser){
+      setShowSigninForm(true);
+      return;
+    }
+    setShowSigninForm(false);
+  }
+
+  function handleSave(){
+    if(!currentUser){
+      setShowSigninForm(true);
+      return;
+    }
+    setShowSigninForm(false);
+  }
+
   const articleDate = new Date(article.articleDate).toDateString();
   const min = 1000000;
   const max= 9999999;
@@ -21,11 +43,11 @@ export const ArticleCard:React.FC<cardProps> = ({article}) => {
         <div className={styles.articleDetails}>
         <div className={`${styles.authorBox} flex items-center mb-2`}>
         <span className={styles.avatarBox}>
-          {/* <i className="fa-solid fa-user"></i> */}
-          <Image src={article.profilePicture} height={25} alt="Author picture"/>
+          <Image src={article.profilePicture?article.profilePicture:user} height={25} alt="Author picture"/>
         </span>
         <span className="authorName ml-3 italic">{article.username}</span>
       </div>
+
           <h2 className={`${styles.titleBox} text-xl mb-1`}>
             {article.title}
           </h2>
@@ -46,10 +68,10 @@ export const ArticleCard:React.FC<cardProps> = ({article}) => {
                 <i className="fa-solid fa-comment-dots"></i>
                 <span>{article.comments}</span>
               </div>
-              <span className={styles.actionItem}>
+              <span className={styles.actionItem} onClick={handleShare}>
                 <i className="fa-solid fa-share-nodes"></i>
               </span>
-              <span className={styles.actionItem}>
+              <span className={styles.actionItem} onClick={handleSave}>
                 <i className="fa-solid fa-bookmark"></i>
               </span>
             </div>

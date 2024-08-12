@@ -5,18 +5,12 @@ import facebook from "@/assets/facebook.png";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import usePrivateStore from "@/store/privateStore";
+import usePublicStore from "@/store/publicStore";
 
-interface formProps {
-  setShowSignupForm: (value: boolean) => void;
-  setShowSigninForm: (value: boolean) => void;
-}
-
-const Signin: React.FC<formProps> = ({
-  setShowSignupForm,
-  setShowSigninForm,
-}) => {
+const Signin = () => {
   const { passwordLogin, currentUser, handleFbLogin, handleGoogleLogin } =
     usePrivateStore();
+    const {setShowSigninForm, setShowSignupForm} = usePublicStore();
   const [formData, setFormData] = useState({
     email: "",
     password: "",

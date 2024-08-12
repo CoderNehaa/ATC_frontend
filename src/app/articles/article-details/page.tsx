@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import styles from "@/styles/details.module.scss";
-import author from "@/assets/author.webp";
+import author from "@/assets/author.png";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Article, Keyword } from "@/store/interface";

@@ -6,6 +6,10 @@ import axios from "axios";
 interface PublicStore{
   keywords: Keyword[];
   articles: Article[];
+  showSigninForm:boolean, 
+  setShowSigninForm:(value:boolean) => void;
+  showSignupForm:boolean, 
+  setShowSignupForm:(value:boolean) => void;
   getKeywords: () => Promise<void>;
   getTrendingArticles: () => Promise<void>;
   getArticlesByKeywordId: (keywordId: number) => Promise<void>;
@@ -15,6 +19,14 @@ interface PublicStore{
 const usePublicStore = create<PublicStore>((set) => ({
   keywords: [],
   articles: [],
+  showSigninForm:false,
+  showSignupForm:false,
+  setShowSigninForm:(value) => {
+    set({showSigninForm:value})
+  },
+  setShowSignupForm(value) {
+    set({showSignupForm:value})
+  },
   getKeywords: async () => {
     try {
       const response: any = await axios.get(`${config.apiUrl}/keywords/all`);
@@ -39,10 +51,9 @@ const usePublicStore = create<PublicStore>((set) => ({
   },
   getArticlesByKeywordId: async (keywordId: number) => {
     try {
-      const response: any = await axios.get(`${config.apiUrl}/articles/keyword/${keywordId}`);
-      const responseObj = response.data;
-      if (responseObj.result) {
-        set({ articles: responseObj.data });
+      const {data} = await axios.get(`${config.apiUrl}/articles/keyword/${keywordId}`);
+      if (data.result) {
+        set({ articles: data.data });
       }
     } catch (error) {
       console.error("Failed to fetch filtered articles", error);

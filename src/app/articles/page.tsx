@@ -19,9 +19,10 @@ export default function AllArticles() {
   useEffect(() => {
     if (currentKw) {
       getArticlesByKeywordId(currentKw.id);
+    } else {
+      getTrendingArticles();
     }
-  }),
-    [currentKw];
+  }), [currentKw];
 
   function handleSubmit(e:any){
     e.preventDefault();

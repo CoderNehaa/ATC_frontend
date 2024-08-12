@@ -5,16 +5,19 @@ import styles from "@/styles/navbar.module.scss";
 import Signin from "@/custom-components/auth/SignIn";
 import Signup from "@/custom-components/auth/Signup";
 import usePrivateStore from "@/store/privateStore";
-import {UserMenuItems} from "./UserMenuItems";
+import { UserMenuItems } from "./UserMenuItems";
+import usePublicStore from "@/store/publicStore";
 
 export default function Navbar() {
-  const [showSigninForm, setShowSigninForm] = useState<boolean>(false);
-  const [showSignupForm, setShowSignupForm] = useState<boolean>(false);
-  const toggleSigninForm = (value: boolean) => setShowSigninForm(value);
-  const toggleSignupForm = (value: boolean) => setShowSignupForm(value);
+  const {
+    showSigninForm,
+    setShowSigninForm,
+    showSignupForm,
+    setShowSignupForm,
+  } = usePublicStore();
   const { currentUser, validateUser } = usePrivateStore();
   const [loading, setLoading] = useState(false);
-  
+
   useEffect(() => {
     if (!loading) {
       setLoading(true);
@@ -65,20 +68,10 @@ export default function Navbar() {
         </ul>
 
         <div style={{ position: "absolute" }}>
-          {showSigninForm ? (
-            <Signin
-              setShowSignupForm={toggleSignupForm}
-              setShowSigninForm={toggleSigninForm}
-            />
-          ) : null}
-          {showSignupForm ? (
-            <Signup
-              setShowSignupForm={toggleSignupForm}
-              setShowSigninForm={toggleSigninForm}
-            />
-          ) : null}
+          {showSigninForm ? <Signin /> : null}
+          {showSignupForm ? <Signup /> : null}
         </div>
       </nav>
-    </>
+    </> 
   );
 }

@@ -7,34 +7,39 @@ import NewChatDialog from "@/custom-components/messenger/NewChatDialog";
 import styles from "@/styles/messenger.module.scss";
 import ChatBox from "@/custom-components/messenger/ChatBox";
 import { MessageInterface } from "@/store/interface";
+import { useRouter } from "next/navigation";
 
 const socket = io("http://localhost:3200");
 
 const page = () => {
-  const { getChats, chats, currentUser, getMessages } = usePrivateStore();
+  const { getChats, chats, currentUser, getMessages, selectedChat, setSelectedChat } = usePrivateStore();
   const [showNewChatBox, setShowNewChatBox] = useState(false);
-  const [selectedChat, setSelectedChat] = useState<any>();
   const [messages, setMessages] = useState<Array<MessageInterface>>([]);
-  
+  const router = useRouter();
+
+  useEffect(() => {
+    if(!currentUser){
+      router.push('/');
+    }
+  } , []);
+
   async function fetchData() {
-    const messagesList = await getMessages(selectedChat.id);
-    setMessages(messagesList);
+    if(selectedChat){
+      const messagesList = await getMessages(selectedChat.id);
+      setMessages(messagesList);
+    }
   }
+
+  useEffect(() => {      
+      fetchData();
+  }, [selectedChat]);
 
   useEffect(() => {
     getChats();
-
     socket.on("sendMessage", () => {
       console.log("client connectd for sendMessage");
     });
   }, [currentUser]);
-
-
-  useEffect(() => {
-    if(selectedChat){      
-      fetchData();
-    }
-  }, [selectedChat]);
 
   return (
     <div className={styles.messengerPage}>

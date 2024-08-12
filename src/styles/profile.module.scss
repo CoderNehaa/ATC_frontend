@@ -1,0 +1,14 @@
+@import "./variables";
+
+.profilePage{
+    position: relative;
+    width: 50%;
+    margin: auto;
+}
+
+.profilePage h1{
+    font-size: $h1font-size;
+    text-align: start;
+    margin: 25px 0;
+}
+

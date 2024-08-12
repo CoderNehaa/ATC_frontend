@@ -1,39 +1,121 @@
-@import './variables';
+@import "./variables";
 
-.messengerPage{
-    width: 100vw;
-    height: 92vh;
-    display: flex;
+.messengerPage {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  margin-top: 0;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  width: 100%;
 }
 
-
-.left{
-    position: relative;
-    width: 30%;
-    height: 100%;
-    border-right: 2px solid lightgray;
-    padding: 10px;
+.left {
+  position: relative;
+  width: 30%;
+  height: 100%;
+  border-right: 2px solid lightgray;
+  padding: 10px;
+  overflow: auto;
 }
 
-.left h2{
-    font-size: $large-text;
-    margin-bottom: 25px;
+.left h2 {
+  font-size: $large-text;
+  margin-bottom: 25px;
 }
 
-.chatCard{
-    position: relative;
-    width: 100%;
-    padding: 10px;
-    display: flex;
-    align-items: start;
-    border-bottom: 1px solid lightgray;
-}
-.right{
-    position: relative;
-    width: 70%;
-    height: 100%;
+.chatCard {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: start;
+  border-bottom: 1px solid lightgray;
 }
 
-.chatHeading{
+.right {
+  padding: 0;
+  position: relative;
+  width: 70%;
+  height: 100%;
+  overflow: auto;
+}
 
+.chatBox {
+  padding: 5px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chatBoxBody {
+  position: relative;
+  height: 92%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatBoxFooter {
+  padding: 10px;
+  position: relative;
+}
+
+.chatHeading {
+  padding: 10px 20px;
+  text-transform: capitalize;
+  background: linear-gradient(to right, $gradient-dark, $gradient-light);
+}
+
+.chatHeading h2 {
+  font-size: $h2font-size;
+}
+
+.chatHeading .date {
+  font-size: $large-text;
+}
+
+.messageBox {
+  position: relative;
+  overflow: auto;
+  scrollbar-width: 2px;
+  padding: 15px;
+}
+
+.message {
+  padding: 5px 15px;
+  margin: 5px 0;
+  width: fit-content;
+  border-radius: 15px;
+  box-shadow: 0 0 1px 1px $box-shadow-color;
+}
+
+.senderName {
+  color: $highlight-text;
+}
+
+.newMessageBox {
+  border: 2px solid $box-shadow-color;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+.swipeBtn {
+  position: absolute;
+  right: 20px;
+  bottom: 5px;
+  background-color: #d5aed2;
+  color: black;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  font-size: large;
+  z-index: 50;
 }

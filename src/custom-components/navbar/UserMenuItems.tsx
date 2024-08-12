@@ -11,6 +11,7 @@ import {
     DiamondIcon,
     DiamondPlus,
     DiamondPlusIcon,
+    Edit,
     Github,
     Heart,
     Keyboard,
@@ -72,23 +73,27 @@ import usePrivateStore from "@/store/privateStore";
           <DropdownMenuLabel>{currentUser.username}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/write')}>
+              <Edit className="mr-2 h-4 w-4" />
+              <span>Write</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/profile')}>
               <User className="mr-2 h-4 w-4" />
-              <span onClick={() => router.push('/profile')}>Profile</span>
+              <span>Profile</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/favorites')}>
               <Heart className="mr-2 h-4 w-4" />
-              <span onClick={() => router.push('/favorites')}>Favorites</span>
+              <span>Favorites</span>
               {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/messenger')}>
               <MessageCircleMore className="mr-2 h-4 w-4" />
-              <span onClick={() => router.push('/messenger')}>Messenger</span>
+              <span>Messenger</span>
               {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/')}>
               <DiamondPlusIcon className="mr-2 h-4 w-4" />
-              <span onClick={() => router.push('/')}>Get Premium</span>
+              <span>Get Premium</span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
@@ -118,9 +123,9 @@ import usePrivateStore from "@/store/privateStore";
             </DropdownMenuSub>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout}>
             <LogOut className="mr-2 h-4 w-4" />
-            <span onClick={handleLogout}>Log out</span>
+            <span>Log out</span>
             {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
           </DropdownMenuItem>
         </DropdownMenuContent>

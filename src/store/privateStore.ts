@@ -1,14 +1,17 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { Article, User, Keyword } from "./interface";
+import { Article, User, ChatInterface } from "./interface";
 import config from "../../web.config.json";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 interface PrivateStore {
   users: User[];
   currentUser: User | null;
-  favoriteArticles:[],
   chats:[],
+  favoriteArticles:[],
+  selectedChat:ChatInterface | null, 
+  setSelectedChat:(chat:ChatInterface) => void,
   getChats:() => Promise<void>;
   setCurrentUser: (user: User | null) => Promise<void>;
   getUserByUserId: (userId: number) => Promise<any>;
@@ -21,7 +24,9 @@ interface PrivateStore {
   logout: () => Promise<void>;
   getUsersList:() => Promise<void>;
   createChat:(chatData:any) => Promise<void>;
-  getMessages: (chatId:number) => any
+  getMessages: (chatId:number) => any;
+  sendMessage:(messageObj:any) => void;
+  updateUser:(user:User) => {};
 }
 
 const usePrivateStore = create<PrivateStore>()(
@@ -29,8 +34,12 @@ const usePrivateStore = create<PrivateStore>()(
     (set, get) => ({
       users: [],
       currentUser: null,
-      favoriteArticles:[],
       chats:[],
+      favoriteArticles:[],
+      selectedChat:null,
+      setSelectedChat:(chat) => {
+        set({selectedChat:chat})
+      },
       setCurrentUser: async (user: User | null) => {
         set({ currentUser: user });
       },
@@ -83,21 +92,21 @@ const usePrivateStore = create<PrivateStore>()(
         password: string
       ): Promise<boolean> => {
         try {
-          const response = await axios.post(
+          const {data} = await axios.post(
             `${config.apiUrl}/users/login`,
             { email, password },
             { withCredentials: true }
           );
-          const responseObj = await response.data;
-          if (responseObj.result) {
-            set((state: PrivateStore) => ({ currentUser: responseObj.data }));
+          if (data.result) {
+            set((state: PrivateStore) => ({ currentUser: data.data }));
+            toast.success(data.message);
             return true;
           } else {
-            window.alert(responseObj.message);
+            toast.error(data.message);
             return false;
           }
         } catch (error) {
-          window.alert("Failed to log in! Try again");
+          toast.error("Failed to log in! Try again");
           console.error("Failed to log in", error);
           return false;
         }
@@ -130,15 +139,23 @@ const usePrivateStore = create<PrivateStore>()(
         } else {
           const {currentUser} = get()
           if(currentUser){
-            window.alert("Your session has expired! Please login again");
+            toast.info("Your session has expired! Please login again");
             set({
               users: [],
-              chats:[],
               currentUser: null,
-              favoriteArticles:[]
+              favoriteArticles:[],
+              selectedChat:null,
+              chats:[]
             })
           }
         }
+      },
+      updateUser:async (user:User) => {
+        const {data} = await axios.put(`${config.apiUrl}/users/update/${user.id}`, {
+          ...user
+        },{
+          withCredentials:true
+        })
       },
       logout: async() : Promise<void>=>{
         //destroy session and call logout API
@@ -146,12 +163,13 @@ const usePrivateStore = create<PrivateStore>()(
           users: [],
           currentUser: null,
           favoriteArticles:[],
+          selectedChat:null,
           chats:[]
         })
         const {data} = await axios.get(`${config.apiUrl}/users/logout`, {
           withCredentials:true
         });
-        window.alert(data.message);
+          toast.info(data.message);
       },
       getChats:async () => {
         const response = await axios.get(`${config.apiUrl}/chats/`, {withCredentials:true});        
@@ -163,7 +181,6 @@ const usePrivateStore = create<PrivateStore>()(
           const {getChats} = get();
           getChats();
         }
-        window.alert(data.message);
       },
       getMessages:async (chatId:number) =>{
         const {data} = await axios.get(`${config.apiUrl}/chats/messages/all/${chatId}`, {
@@ -172,7 +189,17 @@ const usePrivateStore = create<PrivateStore>()(
         if(data.result){
           return data.data;
         } else {
-          window.alert(data.message);
+          console.log(data.message);
+        }
+      },
+      sendMessage:async (messageObj:any)=> {
+        const {data} = await axios.post(`${config.apiUrl}/chats/messages/add`, {
+          ...messageObj
+        }, {
+          withCredentials:true
+        });
+        if(!data.result){
+          toast.error(data.message);
         }
       }
     }),

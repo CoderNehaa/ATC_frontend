@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import author from "@/assets/author.webp";
+import author from "@/assets/author.png";
 import usePrivateStore from "@/store/privateStore";
 import { useEffect, useState } from "react";
 
@@ -83,18 +83,19 @@ const ChatMemberSel:React.FC<Props> = ({participantsIds, setParticipantsIds}) =>
                   >
                     <div className="flex items-center">
                       <div className="cardProfile relative">
-                        <Image
+                      <Image
                           src={
                             user.profilePicture && user.profilePicture.length
                               ? user.profilePicture
                               : author
                           }
-                          height={100}
-                          width={25}
+                          height={50}
+                          width={50}
                           alt="chat"
+                          className="rounded-full"
                         />
-                        {isPresent(user.id ? user.id : 0) ? (
-                          <span className="absolute bg-purple-300 opacity-70 h-[100%] w-[100%] rounded-full flex items-center justify-center opacit0">
+                          {isPresent(user.id ? user.id : 0) ? (
+                         <span className="absolute bg-purple-300 opacity-70 h-[100%] w-[100%] rounded-full flex items-center justify-center opacit0">
                             <span
                               className="text-4xl"
                               style={{ fontWeight: "800" }}

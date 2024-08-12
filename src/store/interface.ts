@@ -1,4 +1,3 @@
-
 export interface Article{
     id?:number,
     userId:number,
@@ -23,7 +22,9 @@ export interface User{
     socialId?:string,
     provider:string,
     totalArticles:number,
-    profilePicture:string
+    profilePicture:string,
+    accountDate:Date,
+    isVerified:boolean
 }
 
 export interface Keyword{
@@ -36,14 +37,16 @@ export interface MessageInterface{
     chatId:number,
     senderId:number,
     message:string,
-    sentAt:Date
-  }
+    sentAt:Date,
+    senderName?:string
+}
   
-  export interface ChatInterface{
-      chatId:number,
-      dp:string,
-      name:string,
-      createdAt:Date,
-      type:string
-  }
+export interface ChatInterface{
+    id:number,
+    dp:string,
+    name:string,
+    createdAt:Date,
+    type:string,
+    receiver?:any
+}
   

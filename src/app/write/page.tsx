@@ -15,8 +15,9 @@ const page = () => {
 
 
   return (
-    <div>Favorites</div>
+    <div>Write</div>
   )
 }
 
 export default page
+
