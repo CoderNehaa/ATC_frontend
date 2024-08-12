@@ -33,10 +33,10 @@ const CategoryBar: React.FC<SidebarProps> = ({ currentKw, setCurrentKw }) => {
 
   return (
     <div className={styles.sidebar}>
-      <div className={styles.sidebarHeading}>
+      <div>
         <h2>Recommended</h2>
       </div>
-      <div className={styles.searchBar}>
+      <div className="searchBar">
         <input
           placeholder="search topic"
           type="text"

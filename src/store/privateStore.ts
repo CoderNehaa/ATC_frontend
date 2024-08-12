@@ -8,12 +8,12 @@ import { toast } from "react-toastify";
 interface PrivateStore {
   users: User[];
   currentUser: User | null;
-  chats:[],
-  favoriteArticles:[],
-  selectedChat:ChatInterface | null, 
-  setSelectedChat:(chat:ChatInterface) => void,
-  getChats:() => Promise<void>;
-  setCurrentUser: (user: User | null) => Promise<void>;
+  chats: [];
+  favoriteArticles: [];
+  selectedChat: ChatInterface | null;
+  setSelectedChat: (chat: ChatInterface) => void;
+  getChats: () => Promise<void>;
+  getFavorites: () => void;
   getUserByUserId: (userId: number) => Promise<any>;
   signup: (username: string, email: string, password: string) => Promise<any>;
   passwordLogin: (email: string, password: string) => Promise<boolean>;
@@ -22,11 +22,14 @@ interface PrivateStore {
   handleFbLogin: () => void;
   validateUser: () => Promise<void>;
   logout: () => Promise<void>;
-  getUsersList:() => Promise<void>;
-  createChat:(chatData:any) => Promise<void>;
-  getMessages: (chatId:number) => any;
-  sendMessage:(messageObj:any) => void;
-  updateUser:(user:User) => {};
+  getUsersList: () => Promise<void>;
+  createChat: (chatData: any) => Promise<void>;
+  getMessages: (chatId: number) => any;
+  sendMessage: (messageObj: any) => void;
+  updateUser: (user: User) => {};
+  sendOTP: () => void;
+  verifyOTP: () => void;
+  clearSession: () => void;
 }
 
 const usePrivateStore = create<PrivateStore>()(
@@ -34,19 +37,19 @@ const usePrivateStore = create<PrivateStore>()(
     (set, get) => ({
       users: [],
       currentUser: null,
-      chats:[],
-      favoriteArticles:[],
-      selectedChat:null,
-      setSelectedChat:(chat) => {
-        set({selectedChat:chat})
+      chats: [],
+      favoriteArticles: [],
+      selectedChat: null,
+      setSelectedChat: (chat) => {
+        set({ selectedChat: chat });
       },
-      setCurrentUser: async (user: User | null) => {
-        set({ currentUser: user });
-      },
+      getFavorites: async () => {},
       getUsersList: async () => {
-        const {data}= await axios.get(`${config.apiUrl}/users/all`, {withCredentials:true});
-        if(data.result){
-          set({users:data.data})
+        const { data } = await axios.get(`${config.apiUrl}/users/all`, {
+          withCredentials: true,
+        });
+        if (data.result) {
+          set({ users: data.data });
         }
       },
       getUserByUserId: async (userId: number) => {
@@ -92,7 +95,7 @@ const usePrivateStore = create<PrivateStore>()(
         password: string
       ): Promise<boolean> => {
         try {
-          const {data} = await axios.post(
+          const { data } = await axios.post(
             `${config.apiUrl}/users/login`,
             { email, password },
             { withCredentials: true }
@@ -133,75 +136,109 @@ const usePrivateStore = create<PrivateStore>()(
         const response = await axios.get(
           `${config.apiUrl}/users/getvaliduser`,
           { withCredentials: true }
-        );                
+        );
         if (response.data.result) {
           set({ currentUser: response.data.user });
         } else {
-          const {currentUser} = get()
+          const { clearSession, currentUser } = get();
           if(currentUser){
             toast.info("Your session has expired! Please login again");
-            set({
-              users: [],
-              currentUser: null,
-              favoriteArticles:[],
-              selectedChat:null,
-              chats:[]
-            })
+            clearSession();
           }
         }
       },
-      updateUser:async (user:User) => {
-        const {data} = await axios.put(`${config.apiUrl}/users/update/${user.id}`, {
-          ...user
-        },{
-          withCredentials:true
-        })
+      updateUser: async (user: User) => {
+        const { data } = await axios.put(
+          `${config.apiUrl}/users/update/${user.id}`,
+          {
+            ...user,
+          },
+          {
+            withCredentials: true,
+          }
+        );
+        if (data.result) {
+          set({ currentUser: user });
+          toast.success(data.message);
+        } else {
+          toast.error(data.message);
+        }
+        return data.result;
       },
-      logout: async() : Promise<void>=>{
-        //destroy session and call logout API
-        set({
-          users: [],
-          currentUser: null,
-          favoriteArticles:[],
-          selectedChat:null,
-          chats:[]
-        })
-        const {data} = await axios.get(`${config.apiUrl}/users/logout`, {
-          withCredentials:true
+      logout: async (): Promise<void> => {
+        const { clearSession } = get();
+        clearSession();
+        const { data } = await axios.get(`${config.apiUrl}/users/logout`, {
+          withCredentials: true,
         });
-          toast.info(data.message);
+        toast.info(data.message);
       },
-      getChats:async () => {
-        const response = await axios.get(`${config.apiUrl}/chats/`, {withCredentials:true});        
-        set({chats:response.data.data})
+      getChats: async () => {
+        const response = await axios.get(`${config.apiUrl}/chats/`, {
+          withCredentials: true,
+        });
+        set({ chats: response.data.data });
       },
-      createChat:async(chatData:any) => {
-        const {data} = await axios.post(`${config.apiUrl}/chats/`, {...chatData}, {withCredentials:true});
-        if(data.result){
-          const {getChats} = get();
+      createChat: async (chatData: any) => {
+        const { data } = await axios.post(
+          `${config.apiUrl}/chats/`,
+          { ...chatData },
+          { withCredentials: true }
+        );
+        if (data.result) {
+          const { getChats } = get();
           getChats();
         }
       },
-      getMessages:async (chatId:number) =>{
-        const {data} = await axios.get(`${config.apiUrl}/chats/messages/all/${chatId}`, {
-          withCredentials:true
-        });
-        if(data.result){
+      getMessages: async (chatId: number) => {
+        const { data } = await axios.get(
+          `${config.apiUrl}/chats/messages/all/${chatId}`,
+          {
+            withCredentials: true,
+          }
+        );
+        if (data.result) {
           return data.data;
         } else {
           console.log(data.message);
         }
       },
-      sendMessage:async (messageObj:any)=> {
-        const {data} = await axios.post(`${config.apiUrl}/chats/messages/add`, {
-          ...messageObj
-        }, {
-          withCredentials:true
-        });
-        if(!data.result){
+      sendMessage: async (messageObj: any) => {
+        const { data } = await axios.post(
+          `${config.apiUrl}/chats/messages/add`,
+          {
+            ...messageObj,
+          },
+          {
+            withCredentials: true,
+          }
+        );
+        if (!data.result) {
           toast.error(data.message);
         }
-      }
+      },
+      sendOTP: async () => {
+        //no need of response
+        //could not send otp, try later
+        //store opt and otp time in db for 10 minute validation only
+        await axios.post(`${config.apiUrl}/users/sendOTP`);
+      },
+      verifyOTP: () => {
+        //response = invalid otp , your email is verified
+        //back-end will check otp, if valid, make is verified true, delete otp and otptime from db
+      },
+      clearSession: () => {
+        const { currentUser } = get();
+        if (currentUser) {
+          set({
+            users: [],
+            currentUser: null,
+            favoriteArticles: [],
+            selectedChat: null,
+            chats: [],
+          });
+        }
+      },
     }),
     {
       name: "user-storage",
@@ -210,4 +247,3 @@ const usePrivateStore = create<PrivateStore>()(
   )
 );
 export default usePrivateStore;
-

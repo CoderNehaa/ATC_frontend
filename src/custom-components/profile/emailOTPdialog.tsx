@@ -19,16 +19,27 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import usePrivateStore from "@/store/privateStore";
 import { useState } from "react";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 function EmailOTPdialog() {
-  const { currentUser } = usePrivateStore();
+  const { currentUser, sendOTP, verifyOTP } = usePrivateStore();
   const [value, setValue] = useState("");
+
+  const handleClick = () =>  {
+    //send otp
+    //give email to back-end and it will send six digit otp to req.user.email
+    sendOTP();
+  }
+
+  const handleSubmit = () => {
+    verifyOTP();
+  }
 
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="mr-5">Verify Email</Button>
+        <Button className="mr-5" onClick={handleClick}>Verify Email</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -66,7 +77,9 @@ function EmailOTPdialog() {
         </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Verify</Button>
+          <DialogClose>
+            <Button type="submit" onClick={handleSubmit}>Verify</Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

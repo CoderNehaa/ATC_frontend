@@ -120,7 +120,7 @@ const NewChatDialog:React.FC<Props> = ({setShowNewChatBox})  => {
           >
             {showGroupInfo && (
               <span
-                className="swipeBtn flex items-center justify-center"
+                className="swipeBtn flexCenter"
                 onClick={() => setShowGroupInfo(false)}
               >
                 <i className="fa-solid fa-arrow-left"></i>
@@ -128,7 +128,7 @@ const NewChatDialog:React.FC<Props> = ({setShowNewChatBox})  => {
             )}
             {!showSubmitBtn && participantsIds.length > 0 && (
               <span
-                className="swipeBtn flex items-center justify-center"
+                className="swipeBtn flexCenter"
                 onClick={() => setShowGroupInfo(!showGroupInfo)}
               >
                 <i className="fa-solid fa-arrow-right"></i>
@@ -138,7 +138,7 @@ const NewChatDialog:React.FC<Props> = ({setShowNewChatBox})  => {
               <SheetClose className="right-6">
                 <button>
                   <span
-                    className="swipeBtn flex items-center justify-center"
+                    className="swipeBtn flexCenter"
                     onClick={handleSubmit}
                   >
                     <i className="fa-solid fa-check"></i>

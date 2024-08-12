@@ -1,26 +1,19 @@
 @import "./variables";
 
+$categorybarWidth : 20vw;
+$mainContentWidth:100vw - $categorybarWidth;
+
+.mainContentOuter{
+    width: $mainContentWidth;
+}
+
 // Main Content
-.mainContent {
+.mainContentInner{
     position: relative;
-    width: 70%;
-    padding: 30px;
-    margin-left: 5vw;
+    margin: auto;
+    width: 80%;
+    padding: 0 30px;
     letter-spacing: 0.7px;
-}
-
-// Current Topic Heading
-.currentTopicHeading {
-    font-size: $h1font-size;
-    margin-bottom: 20px;
-    text-transform: capitalize;
-}
-
-// Articles List
-.articlesList {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
 }
 
 // Article Card
@@ -112,55 +105,21 @@
     font-weight: 500;
 }
 
-// Common Classes
-.flexCenter {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-}
-
-
 //Category bar
 .sidebar{
-    width: 20vw;
+    width: $categorybarWidth;
     box-shadow: 0 0 2px 2px $box-shadow-color;
     height: 100vh;
+    margin: -5px;
     position: fixed;
-    top: 83px;
+    top: $navbar-height;
     right: 0;
     border: 0;
     padding: 20px;
     display: flex;
     flex-direction: column;
     letter-spacing: 1px;
-    z-index: 1;
-}
-
-.sidebarHeading{
-    font-size: $h2font-size;
-    display: flex;
-    align-items: center;
-}
-
-.searchBar{
-    width: 90%;
-    background:linear-gradient(to right, $gradient-dark, $gradient-light);
-    padding: 8px 16px;
-    border: none;
-    border-radius: 25px;
-    font-size: $small-text;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    margin: 15px 0;
-    box-sizing: border-box;
-}
-
-.searchBar input{
-    background-color: transparent;
-    text-transform: capitalize;
-    position: relative;
-    width: 90%;
+    z-index: $sidebarZindex;
 }
 
 .categoriesList{

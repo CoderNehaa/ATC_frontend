@@ -23,7 +23,7 @@ export interface User{
     provider:string,
     totalArticles:number,
     profilePicture:string,
-    accountDate:Date,
+    accountDate:string,
     isVerified:boolean
 }
 

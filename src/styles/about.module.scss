@@ -2,19 +2,13 @@
 
 .aboutPage section{
     height: 100vh;
-    padding: 50px 100px;
+    padding: 0 100px;
+    margin: auto 0;
     text-align: center;
 }
 
 .aboutPage section:nth-child(odd){
     background-color: white;
-}
-
-
-.aboutHeading{
-    font-size: $h1font-size;
-    text-align: center;
-    margin-bottom: 30px;
 }
 
 .aboutPage h2{

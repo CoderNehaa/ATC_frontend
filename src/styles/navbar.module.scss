@@ -2,25 +2,15 @@
 
 .navbar {
     letter-spacing: 0.8px;
-    padding: 10px 30px;
+    padding: 5px 50px;
     position: fixed;
     width: 100vw;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-    height: 80px;
-    z-index: 1;
+    height: $navbar-height;
+    z-index: $navbarZindex;
     box-shadow: 0 0 2px 2px lightgray;
     background-color: white;
-    // background: linear-gradient(to right, #D5ADE2, #D5C3DB);
-}
-
-.fullNavbar{
-    width: 100vw;
-}
-
-.collapsedNavbar{
-    width: 80vw;
 }
 
 .leftNavItems{
@@ -36,8 +26,10 @@
 }
 
 .rightNavItems{
+    position: relative;
+    width: 20%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     font-weight: 500;
     font-size: $large-text;
@@ -45,46 +37,5 @@
 }
 
 .rightNavItems li{
-    margin-right: 18px;
-    letter-spacing: 1px;
     cursor: pointer;
 }
-
-.loginBtn{
-    // background-color: rgb(113, 40, 40);
-    // color: white;
-    // padding: 4px 12px;
-    border-radius: 8px;
-}
-
-.loginBtn i{
-    margin-left: 5px;
-}
-
-.userNavItems{
-    position: absolute;
-    right: 25px;
-    top: 70px;
-    background-color: white;
-    border: 1px solid $box-shadow-color;
-    padding: 15px;
-    font-size: $small-text;
-    display: flex;
-    justify-content: center;
-}
-
-.userNavItems li{
-    padding: 0 8px;
-    text-wrap: nowrap !important;
-    margin-bottom: 10px;
-    border-bottom: 1px solid lightgray;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    font-weight: 400;
-}
-
-.userNavItems i {
-    margin-right: 15px;
-}
-

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/custom-components/navbar/Navbar";
+import "./app.css";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -26,7 +27,7 @@ export default function RootLayout({
       <script src="https://kit.fontawesome.com/da6c19888d.js" crossOrigin="anonymous"></script>
       </head>
       <body className={inter.className}>
-        <div className="min-h-screen">
+        <div className="siteBody">
           <Navbar />
           <div className="contentPage">
             {children}

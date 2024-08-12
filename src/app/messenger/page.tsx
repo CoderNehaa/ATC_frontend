@@ -12,26 +12,33 @@ import { useRouter } from "next/navigation";
 const socket = io("http://localhost:3200");
 
 const page = () => {
-  const { getChats, chats, currentUser, getMessages, selectedChat, setSelectedChat } = usePrivateStore();
+  const {
+    getChats,
+    chats,
+    currentUser,
+    getMessages,
+    selectedChat,
+    setSelectedChat,
+  } = usePrivateStore();
   const [showNewChatBox, setShowNewChatBox] = useState(false);
   const [messages, setMessages] = useState<Array<MessageInterface>>([]);
   const router = useRouter();
 
   useEffect(() => {
-    if(!currentUser){
-      router.push('/');
+    if (!currentUser) {
+      router.push("/");
     }
-  } , []);
+  }, []);
 
   async function fetchData() {
-    if(selectedChat){
+    if (selectedChat) {
       const messagesList = await getMessages(selectedChat.id);
       setMessages(messagesList);
     }
   }
 
-  useEffect(() => {      
-      fetchData();
+  useEffect(() => {
+    fetchData();
   }, [selectedChat]);
 
   useEffect(() => {
@@ -42,24 +49,28 @@ const page = () => {
   }, [currentUser]);
 
   return (
-    <div className={styles.messengerPage}>
-      <div className={styles.left}>
-        <div className="flex justify-between">
-          <h2>Chats</h2>
-          <NewChatDialog setShowNewChatBox={setShowNewChatBox}/>
-        </div>
-        {chats && chats.length ? (
-          <div>
-            {chats.map((chat) => (
-              <ChatCard chat={chat} setSelectedChat={setSelectedChat} />
-            ))}
+    <>
+      {currentUser ? (
+        <div className={styles.messengerPage}>
+          <div className={styles.left}>
+            <div className="flex justify-between">
+              <h2>Chats</h2>
+              <NewChatDialog setShowNewChatBox={setShowNewChatBox} />
+            </div>
+            {chats && chats.length ? (
+              <div>
+                {chats.map((chat) => (
+                  <ChatCard chat={chat} setSelectedChat={setSelectedChat} />
+                ))}
+              </div>
+            ) : null}
           </div>
-        ) : null}
-      </div>
-      <div className={styles.right}>
-        <ChatBox chatDetails={selectedChat} messages={messages} />
-      </div>
-    </div>
+          <div className={styles.right}>
+            <ChatBox chatDetails={selectedChat} messages={messages} />
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 };
 

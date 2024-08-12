@@ -58,11 +58,8 @@ export default function Navbar() {
           {currentUser ? (
             <UserMenuItems currentUser={currentUser} />
           ) : (
-            <li
-              className={`${styles.loginBtn}`}
-              onClick={() => setShowSigninForm(!showSigninForm)}
-            >
-              Sign In<i className="fa-solid fa-right-to-bracket"></i>
+            <li onClick={() => setShowSigninForm(!showSigninForm)}>
+              <i className="fa-solid fa-right-to-bracket"></i>
             </li>
           )}
         </ul>

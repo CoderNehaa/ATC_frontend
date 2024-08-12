@@ -1,0 +1,145 @@
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #303030;
+}
+
+.siteBody{
+  height: 100vh;
+}
+
+.contentPage {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding-top: 80px;
+}
+
+input:focus {
+  outline: none;
+}
+
+input {
+  background: transparent;
+}
+
+button:focus {
+  outline: none;
+  border: none;
+}
+
+/* Scroll button with fixed position */
+.scrollBtn {
+  position: fixed;
+  background-color: #d5aed2;
+  color: black;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  font-size: x-large;
+  right: 40px;
+  bottom: 40px;
+  z-index: 50;
+}
+
+/* Scroll and swipe button with relative position */
+.swipeBtn {
+  background-color: #d5aed2;
+  color: black;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  font-size: x-large;
+}
+
+/* Common classes for flex display */
+.flexColCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexCenter{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Searchbar */
+.searchBar {
+  width: 90%;
+  background: linear-gradient(to right, #d5ade2, #d5c3db);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid lightgray;
+  flex-wrap: nowrap;
+  margin: 15px 0;
+  box-sizing: border-box;
+}
+
+.searchBar input {
+  background: transparent;
+  text-transform: capitalize;
+}
+
+/* For pages with 50vh width */
+.miniPage{
+  position: relative;
+  margin: auto;
+}
+
+.profilePage{
+  width: 50%;
+}
+
+.favoritesPage{
+  width: 70%;
+}
+
+h1{
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin: 25px 0;
+  text-transform: capitalize;
+  letter-spacing: 0.05rem;
+}
+
+h2{
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.03rem;
+}
+
+/* Need to check */
+.card {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: start;
+  border-bottom: 1px solid rgb(238, 237, 237);
+}
+
+.cardProfile {
+  height: 40px;
+  width: 40px;
+  background-color: white;
+  box-shadow: 0 0 1px 1px rgb(238, 237, 237);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card:hover {
+  background-color: #d5c3db;
+  transition: all 0.3s ease-in;
+  cursor: pointer;
+}

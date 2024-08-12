@@ -4,7 +4,7 @@ export default function About() {
   return (
     <div className={styles.aboutPage}>
       <section>
-        <h1 className={styles.aboutHeading}>About Us</h1>
+        <h1 className="h1Heading" style={{textAlign:"center"}}>About Us</h1>
         <div className={styles.content}>
           <div className="w-1/2">
             <h2 className="welcomeline">Hello there! Welcome to ATC.</h2>
