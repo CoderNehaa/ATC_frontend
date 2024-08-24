@@ -9,7 +9,7 @@ interface PrivateStore {
   users: User[];
   currentUser: User | null;
   chats: [];
-  favoriteArticles: [];
+  favoriteArticles: Array<Article>;
   selectedChat: ChatInterface | null;
   setSelectedChat: (chat: ChatInterface) => void;
   getChats: () => Promise<void>;
@@ -30,6 +30,8 @@ interface PrivateStore {
   sendOTP: () => void;
   verifyOTP: () => void;
   clearSession: () => void;
+  addFavoriteArticle:(article:Article)=> void, 
+  removeFavoriteArticle:(article:Article) => void,
 }
 
 const usePrivateStore = create<PrivateStore>()(
@@ -43,29 +45,24 @@ const usePrivateStore = create<PrivateStore>()(
       setSelectedChat: (chat) => {
         set({ selectedChat: chat });
       },
-      getFavorites: async () => {},
+      getFavorites: async () => {
+        try {
+          const {data}: any = await axios.get(`${config.apiUrl}/articles/favorites`, {
+            withCredentials:true
+          });
+          if (data.result) {
+            set({ favoriteArticles: data.data });
+          }
+        } catch (error) {
+          console.error("Failed to fetch trending articles", error);
+        }
+      },
       getUsersList: async () => {
         const { data } = await axios.get(`${config.apiUrl}/users/all`, {
           withCredentials: true,
         });
         if (data.result) {
           set({ users: data.data });
-        }
-      },
-      getUserByUserId: async (userId: number) => {
-        try {
-          const response = await axios.get(
-            `${config.apiUrl}/users/get/${userId}`
-          );
-          if (response.data.result) {
-            return response.data.data;
-          } else {
-            console.error("Failed to fetch user data:", response.data.message);
-            return null;
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-          return null;
         }
       },
       signup: async (username: string, email: string, password: string) => {
@@ -132,6 +129,22 @@ const usePrivateStore = create<PrivateStore>()(
           console.error("Failed to add article", error);
         }
       },
+      getUserByUserId: async (userId: number) => {
+        try {
+          const response = await axios.get(
+            `${config.apiUrl}/users/get/${userId}`
+          );
+          if (response.data.result) {
+            return response.data.data;
+          } else {
+            console.error("Failed to fetch user data:", response.data.message);
+            return null;
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          return null;
+        }
+      },
       validateUser: async (): Promise<void> => {
         const response = await axios.get(
           `${config.apiUrl}/users/getvaliduser`,
@@ -165,6 +178,29 @@ const usePrivateStore = create<PrivateStore>()(
         }
         return data.result;
       },
+      addFavoriteArticle:async (article)=> {
+        const {data} = await axios.post(`${config.apiUrl}/articles/favorites/add/${article.id}`, 
+          {}, 
+          {withCredentials:true});
+        if(data.result){
+          set((state:PrivateStore) => ({favoriteArticles:[article, ...state.favoriteArticles]}));
+          toast.success(data.message);
+        } else {
+          toast.error(data.message);
+        }
+      }, 
+      removeFavoriteArticle:async (article) => {
+        const {data} = await axios.delete(`${config.apiUrl}/articles/favorites/remove/${article.id}`, 
+          {withCredentials:true});
+        if(data.result){
+          const {favoriteArticles} = get();
+          const arr = favoriteArticles.filter((obj) => obj.id !== article.id);
+          set({favoriteArticles:arr});
+          toast.success(data.message);
+        } else {
+          toast.error(data.message);
+        }
+      },
       logout: async (): Promise<void> => {
         const { clearSession } = get();
         clearSession();
@@ -184,10 +220,11 @@ const usePrivateStore = create<PrivateStore>()(
           `${config.apiUrl}/chats/`,
           { ...chatData },
           { withCredentials: true }
-        );
+        );        
         if (data.result) {
-          const { getChats } = get();
+          const { chats, getChats } = get();
           getChats();
+          return data.data
         }
       },
       getMessages: async (chatId: number) => {

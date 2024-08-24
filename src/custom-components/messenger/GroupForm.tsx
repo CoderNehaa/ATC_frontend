@@ -16,7 +16,7 @@ const GroupForm:React.FC<Props> = ({setFormData}) => {
       if (file) {
           const reader:any = new FileReader();
           reader.onloadend = () => {    
-            const base64Data = reader.result.replace(/^data:image\/png;base64,/, "");          
+            const base64Data = reader.result.replace(/^data:image\/png;base64,/, "/");          
               setImage(base64Data); // Set the Base64 string
               setFormData((prev:any) => ({...prev, dp:base64Data}));
           };

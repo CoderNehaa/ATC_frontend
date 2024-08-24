@@ -11,7 +11,7 @@ interface PublicStore{
   showSignupForm:boolean, 
   setShowSignupForm:(value:boolean) => void;
   getKeywords: () => Promise<void>;
-  getTrendingArticles: () => Promise<void>;
+  getTrendingArticles: (userId:number) => Promise<void>;
   getArticlesByKeywordId: (keywordId: number) => Promise<void>;
   getArticleDetails: (articleId: number) => Promise<Article | null>;
 }
@@ -38,13 +38,12 @@ const usePublicStore = create<PublicStore>((set) => ({
       console.error("Failed to fetch keywords", error);
     }
   },
-  getTrendingArticles: async () => {
+  getTrendingArticles: async (userId) => {
     try {
-      const response: any = await axios.get(`${config.apiUrl}/articles/trending`);
-      const responseObj = response.data;
-      if (responseObj.result) {
-        set({ articles: responseObj.data });
-      }
+      // const {data} = await axios.get(`${config.apiUrl}/articles/trending/${userId}`);      
+      // if (data.result) {
+      //   set({ articles: data.data });
+      // }
     } catch (error) {
       console.error("Failed to fetch trending articles", error);
     }

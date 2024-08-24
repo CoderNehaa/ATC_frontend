@@ -36,21 +36,20 @@ export default function Navbar() {
   }
 
   return (
-    <>
-      <nav className={styles.navbar}>
+      <nav className={` ${styles.navbar}`}>
         <div className={styles.leftNavItems}>
-          <span className={`${styles.logoHeading}`}>ATC</span>
+          <h2 className="font-bold">ATC</h2>
           <span className={`${styles.tagline}`}>Write your heart out</span>
         </div>
 
-        <ul className={styles.rightNavItems}>
-          <li>
+        <ul className={`flex justify-end md:justify-between items-center md:w-4/12 lg:5/12 xl:w-1/5 ${styles.rightNavItems}`}>
+          <li className="hidden md:inline">
             <Link href="/">Home</Link>
           </li>
-          <li>
+          <li className="hidden md:inline">
             <Link href="/articles">trending</Link>
           </li>
-          <li>
+          <li className="hidden md:inline">
             <Link href="/about" className="aboutBtn">
               about
             </Link>
@@ -63,12 +62,10 @@ export default function Navbar() {
             </li>
           )}
         </ul>
-
         <div style={{ position: "absolute" }}>
           {showSigninForm ? <Signin /> : null}
           {showSignupForm ? <Signup /> : null}
         </div>
       </nav>
-    </> 
   );
 }

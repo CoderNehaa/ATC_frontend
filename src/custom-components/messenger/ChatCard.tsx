@@ -39,9 +39,10 @@ const ChatCard: React.FC<Props> = ({ chat, setSelectedChat }) => {
         <div className={styles.profile}>
           <Image
             src={getImageSrc()}
-            height={100}
-            width={25}
-            alt="chat"
+            height={45}
+            width={45}
+            alt={chat.name}
+            className="rounded-full"
           />
         </div>
         <div className="flex flex-col ml-5">

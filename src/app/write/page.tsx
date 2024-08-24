@@ -2,6 +2,7 @@
 import React, {useEffect} from 'react'
 import { useRouter } from "next/navigation";
 import usePrivateStore from '@/store/privateStore';
+import Tiptap from '@/custom-components/TipTap';
 
 const page = () => {
   const {currentUser} = usePrivateStore();
@@ -15,7 +16,10 @@ const page = () => {
 
 
   return (
-    <div>Write</div>
+    <div>
+      <h1>Write article</h1>
+      <Tiptap />
+    </div>
   )
 }
 

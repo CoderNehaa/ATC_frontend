@@ -20,7 +20,7 @@ interface Props{
 const NewChatDialog:React.FC<Props> = ({setShowNewChatBox})  => {
   const [participantsIds, setParticipantsIds] = useState(Array<number>);
   const [showGroupInfo, setShowGroupInfo] = useState(false);
-  const {createChat, currentUser} = usePrivateStore();
+  const {createChat, currentUser, selectedChat, setSelectedChat} = usePrivateStore();
   const [showSubmitBtn, setShowSubmitBtn ] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -55,24 +55,26 @@ const NewChatDialog:React.FC<Props> = ({setShowNewChatBox})  => {
     }
 
     if (participantsIds.length === 1) {
-      await createChat({
+      const newChat:any = await createChat({
         type: "individual",
         name: null,
         participants: [...participantsIds, currentUser?.id],
         dp:null
       });
+      setSelectedChat(newChat);
       setParticipantsIds([]);
       setShowNewChatBox(true);
       return;
     }
 
     if (participantsIds.length > 1) {
-      await createChat({
+      const newChat:any = await createChat({
         type:"group",
         name:formData.name,
         participants: [...participantsIds, currentUser?.id],
         dp:formData.dp
       });
+      setSelectedChat(newChat);
     }
 
     setParticipantsIds([]);

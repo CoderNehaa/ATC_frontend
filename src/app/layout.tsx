@@ -24,6 +24,7 @@ export default function RootLayout({
       <head>
         <meta name="ATC"></meta>
         <title>ATC</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       <script src="https://kit.fontawesome.com/da6c19888d.js" crossOrigin="anonymous"></script>
       </head>
       <body className={inter.className}>

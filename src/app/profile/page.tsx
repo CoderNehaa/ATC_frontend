@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { User } from "@/store/interface";
 import { toast } from "react-toastify";
-import styles from "@/styles/profile.module.scss";
 import usePrivateStore from "@/store/privateStore";
 import EmailOTPdialog from "@/custom-components/profile/emailOTPdialog";
 import author from "@/assets/author.png";
@@ -35,7 +34,7 @@ const page = () => {
       });
       setImage(currentUser.profilePicture);
     } else {
-      // router.push("/");
+      router.push("/");
     }
   }, [currentUser]);
   

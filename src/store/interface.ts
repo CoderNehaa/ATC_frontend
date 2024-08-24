@@ -10,11 +10,12 @@ export interface Article{
     comments?:[],
     keywords?:[],
     profilePicture:string,
-    articleImage:string
+    articleImage:string,
+    isFavorite?:boolean
 }
 
 export interface User{
-    id?:number,
+    id:number,
     username:string,
     email:string,
     bio:string,

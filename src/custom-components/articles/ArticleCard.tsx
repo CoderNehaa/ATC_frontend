@@ -15,7 +15,7 @@ interface cardProps{
 
 export const ArticleCard:React.FC<cardProps> = ({article}) => {
   const {setShowSigninForm} = usePublicStore();
-  const {currentUser} = usePrivateStore();
+  const {currentUser, addFavoriteArticle, removeFavoriteArticle} = usePrivateStore();
   
   function handleShare(){
     if(!currentUser){
@@ -72,7 +72,7 @@ export const ArticleCard:React.FC<cardProps> = ({article}) => {
                 <i className="fa-solid fa-share-nodes"></i>
               </span>
               <span className={styles.actionItem} onClick={handleSave}>
-                <i className="fa-solid fa-bookmark"></i>
+                <i className={`fa-${article.isFavorite?"solid":"regular"} fa-bookmark`}></i>
               </span>
             </div>
             <Link href={`/articles/article-details?r=${randomNumber}&a=${article.id}`}>

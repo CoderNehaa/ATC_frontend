@@ -24,7 +24,7 @@
 
 .left h2 {
   font-size: $large-text;
-  margin-bottom: 25px;
+  // margin-bottom: 25px;
 }
 
 .chatCard {
@@ -118,4 +118,14 @@
   border-radius: 50%;
   font-size: large;
   z-index: 50;
+}
+
+@media screen and (max-width:600px){
+  .left{
+    width: 100%;
+    border-right: 0;
+  }
+  .right{
+    display: none;
+  }
 }

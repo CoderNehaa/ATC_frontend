@@ -26,9 +26,9 @@ const page = () => {
 
   useEffect(() => {
     if (!currentUser) {
-      router.push("/");
+      // router.push("/");
     }
-  }, []);
+  }, [currentUser]);
 
   async function fetchData() {
     if (selectedChat) {
@@ -53,17 +53,21 @@ const page = () => {
       {currentUser ? (
         <div className={styles.messengerPage}>
           <div className={styles.left}>
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <h2>Chats</h2>
               <NewChatDialog setShowNewChatBox={setShowNewChatBox} />
             </div>
             {chats && chats.length ? (
-              <div>
+              <>
                 {chats.map((chat) => (
                   <ChatCard chat={chat} setSelectedChat={setSelectedChat} />
                 ))}
+              </>
+            ) : (
+              <div className="w-full mt-4 pt-4 border-t-2">
+                You have no chats! Start chatting.
               </div>
-            ) : null}
+            )}
           </div>
           <div className={styles.right}>
             <ChatBox chatDetails={selectedChat} messages={messages} />

@@ -11,11 +11,6 @@
     background-color: white;
 }
 
-.aboutPage h2{
-    font-size: $h2font-size;
-    margin-bottom: 25px;
-}
-
 .aboutPage p{
     font-size: $large-text;
 }
@@ -78,8 +73,31 @@
     box-shadow: 0 0 1px 1px $box-shadow-color;
 }
 
-
-
+@media screen and (max-width:600px){
+    .bg{
+        width: 100%;
+        margin: 30px 0;
+    }
+    .aboutPage section{
+        min-height: 100vh;
+        height: auto;
+        padding: 0 30px;
+    }
+    .content{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        height: auto;
+    }
+    .ctaBtn{
+        margin: 10px 0;
+        padding: 5px 15px;
+        font-size: $small-text;
+    }
+    .bgBox{
+        transform: rotate(0deg);
+    }
+}
 
 
 
