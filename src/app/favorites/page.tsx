@@ -19,7 +19,7 @@ const page = () => {
   return (
     <div>
       {currentUser ? (
-        <div className="miniPage favoritesPage">
+        <div className="miniPage pagevw-70">
           <h1>Bookmarks</h1>
           <div className="flex flex-col">
             {favoriteArticles.map((article, index) => (

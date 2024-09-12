@@ -71,3 +71,5 @@ export function SheetDemo() {
     </Sheet>
   )
 }
+Forced content structure for title and description
+

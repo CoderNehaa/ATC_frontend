@@ -9,6 +9,7 @@
     "esModuleInterop": true, // Enables emit interoperability between CommonJS and ES Modules
     "module": "esnext", // Use the latest module system
     "moduleResolution": "node", // Use Node.js module resolution
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true, // Allow importing JSON files
     "isolatedModules": true, // Ensure each file can be transpiled independently
     "jsx": "preserve", // Keep JSX syntax for React

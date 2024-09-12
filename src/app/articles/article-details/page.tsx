@@ -2,23 +2,28 @@
 import Image from "next/image";
 import styles from "@/styles/details.module.scss";
 import author from "@/assets/author.png";
+import hardik from "@/assets/trading.jpeg";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Article, Keyword } from "@/store/interface";
 import usePublicStore from "@/store/publicStore";
 
 export const ArticleDetails = () => {
-  const { getArticleDetails } = usePublicStore();
+  const { getArticleDetails, articles } = usePublicStore();
   const [article, setArticle] = useState<Article>();
   const searchParams = useSearchParams();
   const id = searchParams.get("a");
+  console.log(id);
+  
 
   async function fetchData(id: number) {
-    const data: Article | null = await getArticleDetails(id);
+    // const data: Article | null = await getArticleDetails(id);
+    const data = articles.find((article) => article.id === id);
     if (data !== null) {
       setArticle(data);
     }
   }
+
   const formatDate = () => {
     if (article) {
       return new Date(article.articleDate).toDateString();
@@ -49,8 +54,8 @@ export const ArticleDetails = () => {
           </div>
           <h1>{article.title}</h1>
 
-          <div className={styles.articleImage}>
-            <Image src={article.articleImage} alt={article.title} width={40} height={50} />
+          <div className={`w-full ${styles.articleImage}`}>
+            <Image src={hardik} alt={article.title} width={1100} height={500} />
           </div>
           <div className={styles.keywords}>
             {article.keywords

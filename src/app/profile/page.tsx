@@ -83,7 +83,7 @@ const page = () => {
   }
 
   return (
-    <div className="miniPage profilePage">
+    <div className="miniPage pagevw-50">
       <h1>Profile</h1>
       {currentUser ? (
         <form className="relative w-full" onSubmit={(e) => handleSubmit(e)}>

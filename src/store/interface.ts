@@ -9,8 +9,8 @@ export interface Article{
     likes:number,
     comments?:[],
     keywords?:[],
-    profilePicture:string,
-    articleImage:string,
+    profilePicture?:string,
+    articleImage?:string,
     isFavorite?:boolean
 }
 

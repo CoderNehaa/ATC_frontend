@@ -95,11 +95,11 @@ button:focus {
   margin: auto;
 }
 
-.profilePage{
+.pagevw-50{
   width: 50%;
 }
 
-.favoritesPage{
+.pagevw-70{
   width: 70%;
 }
 
@@ -167,3 +167,22 @@ h2{
   }
 }
 
+.editorButtons button{
+  height: 25px;
+  overflow: hidden;
+  width: 25px;
+  /* border: 1px solid lightgray; */
+  margin: 0 8px;
+}
+
+textarea:focus{
+  outline: none;
+}
+
+textarea{
+  resize: none;
+}
+
+.highlightText{
+  color: #7D0EA3;
+}

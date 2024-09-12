@@ -40,10 +40,10 @@ const usePublicStore = create<PublicStore>((set) => ({
   },
   getTrendingArticles: async (userId) => {
     try {
-      // const {data} = await axios.get(`${config.apiUrl}/articles/trending/${userId}`);      
-      // if (data.result) {
-      //   set({ articles: data.data });
-      // }
+      const {data} = await axios.get(`${config.apiUrl}/articles/all`);      
+      if (data.result) {
+        set({ articles: data.data });
+      }
     } catch (error) {
       console.error("Failed to fetch trending articles", error);
     }
