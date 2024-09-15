@@ -10,7 +10,7 @@ import usePublicStore from "@/store/publicStore";
 const Signin = () => {
   const { passwordLogin, currentUser, handleFbLogin, handleGoogleLogin } =
     usePrivateStore();
-    const {setShowSigninForm, setShowSignupForm} = usePublicStore();
+  const {setShowSigninForm, setShowSignupForm} = usePublicStore();
   const [formData, setFormData] = useState({
     email: "",
     password: "",

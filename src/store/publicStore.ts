@@ -13,6 +13,7 @@ interface PublicStore{
   getKeywords: () => Promise<void>;
   getTrendingArticles: (userId:number) => Promise<void>;
   getArticlesByKeywordId: (keywordId: number) => Promise<void>;
+  getArticlesByUserId: (userId: number) => Promise<Array<Article>>;
   getArticleDetails: (articleId: number) => Promise<Article | null>;
 }
 
@@ -40,8 +41,10 @@ const usePublicStore = create<PublicStore>((set) => ({
   },
   getTrendingArticles: async (userId) => {
     try {
-      const {data} = await axios.get(`${config.apiUrl}/articles/all`);      
-      if (data.result) {
+      const {data} = await axios.get(`${config.apiUrl}/articles/trending/${userId}`, {
+        withCredentials:true
+      });           
+      if (data.result) {        
         set({ articles: data.data });
       }
     } catch (error) {
@@ -56,6 +59,18 @@ const usePublicStore = create<PublicStore>((set) => ({
       }
     } catch (error) {
       console.error("Failed to fetch filtered articles", error);
+    }
+  },
+  getArticlesByUserId:async(userId:number):Promise<Array<Article>> => {
+    try {
+      const {data} = await axios.get(`${config.apiUrl}/articles/author/${userId}`);
+      if (data.result) {
+        return data.data;
+      }
+      return[];
+    } catch (error) {
+      console.error("Failed to fetch filtered articles", error);
+      return [];
     }
   },
   getArticleDetails: async (articleId: number): Promise<Article | null> => {

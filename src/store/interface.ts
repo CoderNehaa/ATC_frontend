@@ -3,15 +3,17 @@ export interface Article{
     userId:number,
     username?:string,
     title:string,
-    description?:string,
+    description:string,
     content:string,
     articleDate:Date,
     likes:number,
     comments?:[],
-    keywords?:[],
+    keywords?:number[],
     profilePicture?:string,
     articleImage?:string,
-    isFavorite?:boolean
+    isFav?:boolean,
+    privacy:string,
+    language:string
 }
 
 export interface User{

@@ -17,7 +17,7 @@ interface PrivateStore {
   getUserByUserId: (userId: number) => Promise<any>;
   signup: (username: string, email: string, password: string) => Promise<any>;
   passwordLogin: (email: string, password: string) => Promise<boolean>;
-  addArticle: (article: Article) => Promise<void>;
+  addArticle: (article: Article) => Promise<boolean>;
   handleGoogleLogin: () => void;
   handleFbLogin: () => void;
   validateUser: () => Promise<void>;
@@ -30,8 +30,8 @@ interface PrivateStore {
   sendOTP: () => void;
   verifyOTP: () => void;
   clearSession: () => void;
-  addFavoriteArticle:(article:Article)=> void, 
-  removeFavoriteArticle:(article:Article) => void,
+  addFavoriteArticle:(article:Article)=> Promise<boolean>, 
+  removeFavoriteArticle:(article:Article) => Promise<boolean>,
 }
 
 const usePrivateStore = create<PrivateStore>()(
@@ -54,7 +54,7 @@ const usePrivateStore = create<PrivateStore>()(
             set({ favoriteArticles: data.data });
           }
         } catch (error) {
-          console.error("Failed to fetch trending articles", error);
+          console.error("Failed to fetch favorite articles! Try later", error);
         }
       },
       getUsersList: async () => {
@@ -107,7 +107,6 @@ const usePrivateStore = create<PrivateStore>()(
           }
         } catch (error) {
           toast.error("Failed to log in! Try again");
-          console.error("Failed to log in", error);
           return false;
         }
       },
@@ -119,12 +118,13 @@ const usePrivateStore = create<PrivateStore>()(
       },
       addArticle: async (article: Article) => {
         try {
-          const response = await fetch(`${config.apiUrl}/articles`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(article),
+          const {data} = await axios.post(`${config.apiUrl}/articles/add`, {
+            ...article
+          }, {
+            withCredentials:true
           });
-          const data = await response.json();
+          toast.info(data.message);
+          return data.result;
         } catch (error) {
           console.error("Failed to add article", error);
         }
@@ -188,10 +188,11 @@ const usePrivateStore = create<PrivateStore>()(
         } else {
           toast.error(data.message);
         }
+        return data.result;
       }, 
       removeFavoriteArticle:async (article) => {
         const {data} = await axios.delete(`${config.apiUrl}/articles/favorites/remove/${article.id}`, 
-          {withCredentials:true});
+          {withCredentials:true});          
         if(data.result){
           const {favoriteArticles} = get();
           const arr = favoriteArticles.filter((obj) => obj.id !== article.id);
@@ -200,6 +201,7 @@ const usePrivateStore = create<PrivateStore>()(
         } else {
           toast.error(data.message);
         }
+        return data.result;
       },
       logout: async (): Promise<void> => {
         const { clearSession } = get();

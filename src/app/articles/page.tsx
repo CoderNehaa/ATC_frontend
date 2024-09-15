@@ -5,7 +5,7 @@ import styles from "@/styles/articles.module.scss";
 
 import Sidebar from "@/custom-components/articles/CategoryBar";
 import { ArticleCard } from "@/custom-components/articles/ArticleCard";
-import { Keyword } from "@/store/interface";
+import { Article, Keyword } from "@/store/interface";
 import usePrivateStore from "@/store/privateStore";
 
 export default function AllArticles() {
@@ -13,6 +13,7 @@ export default function AllArticles() {
   const { getTrendingArticles, articles, getKeywords, getArticlesByKeywordId } =
     usePublicStore();
   const { currentUser } = usePrivateStore();
+  const [currentData, setCurrentData] = useState(Array<Article>);
 
   useEffect(() => {
     getKeywords();
@@ -20,16 +21,23 @@ export default function AllArticles() {
   }, []);
 
   useEffect(() => {
+    if(articles && articles.length){
+      setCurrentData([...articles]);
+    }
+  }, [articles])
+
+  useEffect(() => {
     if (currentKw) {
       getArticlesByKeywordId(currentKw.id);
     } else {
       getTrendingArticles(currentUser ? currentUser.id : 0);
     }
-  }, [currentKw])
+  }, [currentKw, currentUser])
 
   function handleSearchQuery(e: any) {
-    e.preventDefault();
-     
+    const value = e.target.value;
+    const arr = articles.filter((article) => article.title.toLowerCase().includes(value) || article.description.toLowerCase().includes(value));
+    setCurrentData([...arr]);
   }
 
   return (
@@ -38,20 +46,20 @@ export default function AllArticles() {
         <div className={styles.mainContentInner}>
           <div className="flex items-center justify-between">
             <h1>{currentKw ? currentKw.keywordName : "Trending"} Articles</h1>
-            <form onSubmit={(e) => handleSearchQuery(e)}>
+            {articles.length>3? <form onSubmit={(e) => e.preventDefault()}>
               <button className="searchBtn">
-                <input type="text" placeholder="Search..." />
+                <input type="text" placeholder="Search..." onChange={(e) => handleSearchQuery(e)} />
                 <i className="fa-solid fa-magnifying-glass"></i>
               </button>
-            </form>
+            </form>:null}
           </div>
-          {articles.length ? (
+          {currentData.length ? (
             <div className="flexColCenter">
-              {articles.map((article, index) => (
+              {currentData.map((article, index) => (
                 <ArticleCard key={index} article={article} />
               ))}
             </div>
-          ) : null}
+          ) : <span className="text-xl">There are no articles associated with this category.</span>}
         </div>
       </div>
 

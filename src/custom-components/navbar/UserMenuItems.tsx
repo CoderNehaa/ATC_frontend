@@ -5,6 +5,7 @@ import Avatar from "./Avatar";
 import { useRouter } from "next/navigation";
 import {
   Book,
+  BookA,
   Bookmark,
   DiamondPlusIcon,
   Edit,
@@ -83,13 +84,17 @@ export const UserMenuItems: React.FC<{ currentUser: UserInterface }> = ({
               <User className="mr-2 h-4 w-4" />
               <span>Profile</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => router.push("/favorites")}>
+            <DropdownMenuItem onClick={() => router.push("/bookmarks")}>
               <Bookmark className="mr-2 h-4 w-4" />
               <span>Bookmarks</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => router.push("/messenger")}>
+            {/* <DropdownMenuItem onClick={() => router.push("/messenger")}>
               <MessageCircleMore className="mr-2 h-4 w-4" />
               <span>Messenger</span>
+            </DropdownMenuItem> */}
+            <DropdownMenuItem onClick={() => router.push(`/articles/user?u=${currentUser.id}`)}>
+              <BookA className="mr-2 h-4 w-4"/>
+              <span>Your articles</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="md:hidden"

@@ -24,11 +24,24 @@ export const ArticleCard:React.FC<cardProps> = ({article}) => {
     }
     setShowSigninForm(false);
   }
-
-  function handleSave(){
+  
+  async function handleSave(){
     if(!currentUser){
       setShowSigninForm(true);
       return;
+    } else {
+
+      if(article.isFav){
+        const result:boolean = await removeFavoriteArticle(article);
+        if(result){
+          article.isFav = false;
+        }
+      } else {
+        const result:boolean = await addFavoriteArticle(article);
+        if(result){
+          article.isFav = true;
+        }
+      }
     }
     setShowSigninForm(false);
   }
@@ -43,7 +56,7 @@ export const ArticleCard:React.FC<cardProps> = ({article}) => {
         <div className={styles.articleDetails}>
         <div className={`${styles.authorBox} flex items-center mb-2`}>
         <span className={styles.avatarBox}>
-          <Image src={article.profilePicture?article.profilePicture:user} height={25} alt="Author picture"/>
+          <Image src={article.profilePicture?article.profilePicture:user} width={30} className="rounded-full" height={30} alt="Author picture"/>
         </span>
         <span className="authorName ml-3 italic">{article.username}</span>
       </div>
@@ -68,11 +81,11 @@ export const ArticleCard:React.FC<cardProps> = ({article}) => {
                 <i className="fa-solid fa-comment-dots"></i>
                 <span>{article.comments}</span>
               </div>
-              <span className={styles.actionItem} onClick={handleShare}>
+              {/* <span className={styles.actionItem} onClick={handleShare}>
                 <i className="fa-solid fa-share-nodes"></i>
-              </span>
+              </span> */}
               <span className={styles.actionItem} onClick={handleSave}>
-                <i className={`fa-${article.isFavorite?"solid":"regular"} fa-bookmark`}></i>
+                <i className={`fa-${article.isFav?"solid":"regular"} fa-bookmark`}></i>
               </span>
             </div>
             <Link href={`/articles/article-details?r=${randomNumber}&a=${article.id}`}>
@@ -80,14 +93,14 @@ export const ArticleCard:React.FC<cardProps> = ({article}) => {
             </Link>
           </div>
         </div>
-        <div className={`${styles.articleImg}`}>
+       {article.articleImage? <div className={`${styles.articleImg}`}>
           <Image
-            src={hardik}
+            src={article.articleImage}
             width={100}
             height={100}
             alt={article.title}
           />
-        </div>
+        </div>:null}
     </div>
     )
 }
