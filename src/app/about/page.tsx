@@ -86,8 +86,8 @@ export default function About() {
 
           <div>
             <button className={`${styles.ctaBtn} flex items-center`}>
-              <span>Join Community</span>
-              <i className="fa-solid fa-arrow-right ml-3"></i>
+              <a href="/"><span>Explore ATC</span>
+              <i className="fa-solid fa-arrow-right ml-3"></i></a>
             </button>
           </div>
         </div>
@@ -109,11 +109,10 @@ export default function About() {
           </p>
           <br />
           <p>
-            I completed my graduation in 2021 with B.Sc. in Biology. When I
-            began looking for a job after learning web development, my passion
+            I have worked in corporate with different companies but my passion
             for creating something of my own led me to the idea of building a
             website. That’s when the writer in me (who wrote during my teenage
-            years and is not a professional writer 😅) inspired me to create a
+            years and is not a professional writer) inspired me to create a
             writing platform. I hope you enjoy reading my articles as much as I
             enjoy writing them.
           </p>
@@ -152,9 +151,6 @@ export default function About() {
               </span>
               <span>
                 <i className="fa-brands fa-x-twitter"></i>
-              </span>
-              <span>
-                <i className="fa-brands fa-whatsapp"></i>
               </span>
             </div>
           </div>

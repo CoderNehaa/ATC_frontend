@@ -167,8 +167,8 @@ const Signup = () => {
             ) : null}
 
             <div className="flex justify-center">
-              <button className={`${styles.authBtn} w-auto mt-2`} type="submit">
-                <span>Create Account</span>
+              <button className={`${styles.authBtn} w-auto mt-2 text-center`} type="submit">
+                <span className="w-full text-center">Create Account</span>
               </button>
             </div>
           </form>
@@ -272,7 +272,7 @@ const Signup = () => {
         </div>
           <div className="flexColCenter">
             {/* Signin with facebook */}
-            <button className={styles.signupAuthBtn} onClick={handleFbLogin}>
+            <button className={styles.signupAuthBtn}>
                 <span className={`${styles.iconBox} border-0`}>
                     <i className="fa-solid fa-arrow-left"></i>
                 </span>

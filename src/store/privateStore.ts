@@ -13,7 +13,7 @@ interface PrivateStore {
   selectedChat: ChatInterface | null;
   setSelectedChat: (chat: ChatInterface) => void;
   getChats: () => Promise<void>;
-  getFavorites: () => void;
+  getBookmarks: () => void;
   getUserByUserId: (userId: number) => Promise<any>;
   signup: (username: string, email: string, password: string) => Promise<any>;
   passwordLogin: (email: string, password: string) => Promise<boolean>;
@@ -45,7 +45,7 @@ const usePrivateStore = create<PrivateStore>()(
       setSelectedChat: (chat) => {
         set({ selectedChat: chat });
       },
-      getFavorites: async () => {
+      getBookmarks: async () => {
         try {
           const {data}: any = await axios.get(`${config.apiUrl}/articles/favorites`, {
             withCredentials:true

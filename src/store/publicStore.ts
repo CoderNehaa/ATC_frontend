@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Article, User, Keyword } from "./interface";
+import { Article, Keyword } from "./interface";
 import config from "../../web.config.json";
 import axios from "axios";
 
@@ -14,7 +14,7 @@ interface PublicStore{
   getTrendingArticles: (userId:number) => Promise<void>;
   getArticlesByKeywordId: (keywordId: number) => Promise<void>;
   getArticlesByUserId: (userId: number) => Promise<Array<Article>>;
-  getArticleDetails: (articleId: number) => Promise<Article | null>;
+  getArticleDetails: (articleId: number, userId:number) => Promise<Article | null>;
 }
 
 const usePublicStore = create<PublicStore>((set) => ({
@@ -73,13 +73,12 @@ const usePublicStore = create<PublicStore>((set) => ({
       return [];
     }
   },
-  getArticleDetails: async (articleId: number): Promise<Article | null> => {
+  getArticleDetails: async (articleId: number, userId:number): Promise<Article | null> => {
     let article = null;
     try {
-      const response: any = await axios.get(`${config.apiUrl}/articles/${articleId}`);
-      const responseObj = response.data;
-      if (responseObj.result) {
-        article = responseObj.data;
+      const {data} = await axios.get(`${config.apiUrl}/articles/details/${articleId}/bookmark/${userId}`);            
+      if (data.result) {
+        article = data.data;
       }
     } catch (error) {
       console.error("Failed to fetch article details", error);

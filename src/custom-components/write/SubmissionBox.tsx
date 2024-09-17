@@ -122,6 +122,8 @@ const SubmissionBox: React.FC<Props> = ({ article, setShowSubmissionCard, create
                 </div>
               ) : null}
             </div>
+            <div>
+            </div>
           </div>
           <Button onClick={handleSubmit}>Submit</Button>
         </div>

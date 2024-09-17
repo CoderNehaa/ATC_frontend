@@ -53,8 +53,7 @@ const CategoryBar: React.FC<SidebarProps> = ({ currentKw, setCurrentKw }) => {
       <ul className={styles.categoriesList}>
         {searchQuery.length?null:<li
           className={currentKw ? "" : styles.currentKw}
-          onClick={() => setCurrentKw(null)}
-        >
+          onClick={() => setCurrentKw(null)}>
           Trending
         </li>}
         {currentData.map((keyword, index) => {

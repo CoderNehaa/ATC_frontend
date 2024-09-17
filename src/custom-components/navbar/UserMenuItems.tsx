@@ -14,6 +14,7 @@ import {
   Mail,
   MessageCircleMore,
   MessageSquare,
+  Newspaper,
   PlusCircle,
   TrendingUp,
   User,
@@ -68,13 +69,13 @@ export const UserMenuItems: React.FC<{ currentUser: UserInterface }> = ({
           <DropdownMenuLabel>{currentUser.username}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem className="md:hidden" onClick={() => router.push("/")}>
+            {/* <DropdownMenuItem className="md:hidden" onClick={() => router.push("/")}>
               <Home className="mr-2 h-4 w-4" />
               <span>Home</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="md:hidden" onClick={() => router.push("/articles")}>
-              <TrendingUp className="mr-2 h-4 w-4" />
-              <span>Trending</span>
+            </DropdownMenuItem> */}
+            <DropdownMenuItem onClick={() => router.push("/")}>
+              <Home className="mr-2 h-4 w-4" />
+              <span>Home</span>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => router.push("/write")}>
               <Edit className="mr-2 h-4 w-4" />
@@ -93,21 +94,20 @@ export const UserMenuItems: React.FC<{ currentUser: UserInterface }> = ({
               <span>Messenger</span>
             </DropdownMenuItem> */}
             <DropdownMenuItem onClick={() => router.push(`/articles/user?u=${currentUser.id}`)}>
-              <BookA className="mr-2 h-4 w-4"/>
+              <Newspaper className="mr-2 h-4 w-4"/>
               <span>Your articles</span>
             </DropdownMenuItem>
             <DropdownMenuItem
-              className="md:hidden"
               onClick={() => router.push("/about")}>
               <Book className="mr-2 h-4 w-4" />
               <span>About Us</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => router.push("/")}>
+            {/* <DropdownMenuItem onClick={() => router.push("/")}>
               <DiamondPlusIcon className="mr-2 h-4 w-4" />
               <span>Get Premium</span>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
+          {/* <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
@@ -132,7 +132,7 @@ export const UserMenuItems: React.FC<{ currentUser: UserInterface }> = ({
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
-          </DropdownMenuGroup>
+          </DropdownMenuGroup> */}
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleLogout}>
             <LogOut className="mr-2 h-4 w-4" />

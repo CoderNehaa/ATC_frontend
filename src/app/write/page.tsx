@@ -87,8 +87,7 @@ const Page = () => {
             <Button
               onClick={handleSubmit}
               className="rounded-full"
-              disabled={disabledBtn}
-            >
+              disabled={disabledBtn}>
               Post
             </Button>
           </div>
@@ -131,7 +130,7 @@ const Page = () => {
               <Image src={coverImage} alt={title} width={1100} height={500} />
             </div>
           ) : (
-            <div className="w-full min-h-[500px] flex flex-col items-center justify-center border">
+            <div className="w-full min-h-[250px]  lg:min-h-[500px] flex flex-col items-center justify-center border">
               <div className="flex flex-col">
                 <span>Article's cover image</span>
                 <Input
@@ -152,3 +151,4 @@ const Page = () => {
 };
 
 export default Page;
+

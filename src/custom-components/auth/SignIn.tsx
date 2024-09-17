@@ -73,6 +73,9 @@ const Signin = () => {
                 }}
               />
             </div>
+            <div className="w-full text-start mb-2 highlightText">
+              Forgot password?
+            </div>
             <button className={`${styles.authBtn} mt-2`}>
               <span className={styles.iconBox}>
                 <Image src={lock} alt="password" width={30} />
@@ -103,15 +106,14 @@ const Signin = () => {
 
           <span className={styles.actionMsg}>
             New to ATC?
-            <button onClick={handleClick}> Create your account.</button>
+            <button onClick={handleClick} className="ml-1"> Create your account.</button>
           </span>
         </div>
 
         {/* Close signin form button */}
         <div
           className={styles.closeBtn}
-          onClick={() => setShowSigninForm(false)}
-        >
+          onClick={() => setShowSigninForm(false)}>
           <i className="fa-solid fa-xmark"></i>
         </div>
       </div>

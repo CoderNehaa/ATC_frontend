@@ -42,8 +42,8 @@ export default function Navbar() {
           <span className={`${styles.tagline}`}>Write your heart out</span>
         </div>
 
-        <ul className={`flex justify-end md:justify-between items-center md:w-4/12 lg:5/12 xl:w-1/5 ${styles.rightNavItems}`}>
-          <li className="hidden md:inline">
+        <ul className={`flex justify-end md:justify-between items-center ${styles.rightNavItems}`}>
+          {/* <li className="hidden md:inline">
             <Link href="/">Home</Link>
           </li>
           <li className="hidden md:inline">
@@ -53,7 +53,7 @@ export default function Navbar() {
             <Link href="/about" className="aboutBtn">
               about
             </Link>
-          </li>
+          </li> */}
           {currentUser ? (
             <UserMenuItems currentUser={currentUser} />
           ) : (
