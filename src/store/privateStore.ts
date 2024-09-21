@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { Article, User, ChatInterface } from "./interface";
+import { Article, User, ChatInterface, CommentInterface } from "./interface";
 import config from "../../web.config.json";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -32,6 +32,8 @@ interface PrivateStore {
   clearSession: () => void;
   addFavoriteArticle:(article:Article)=> Promise<boolean>, 
   removeFavoriteArticle:(article:Article) => Promise<boolean>,
+  addComment:(comment:CommentInterface) => Promise<boolean>,
+  toggleLikes:(articleId:number) => Promise<void>
 }
 
 const usePrivateStore = create<PrivateStore>()(
@@ -278,6 +280,26 @@ const usePrivateStore = create<PrivateStore>()(
           });
         }
       },
+      addComment:async (comment:CommentInterface) => {
+        try{
+          const {data} = await axios.post(`${config.apiUrl}/comments/add`, {...comment}, {withCredentials:true})
+          toast.info(data.message);
+          return data.result;
+        } catch (e){
+          console.log(e);
+          toast.error("Failed to add Comment! Try later.")
+        }
+      },
+      toggleLikes:async (articleId:number) => {
+        try{
+          const {data} = await axios.post(`${config.apiUrl}/articles/likes/${articleId}`, {}, {withCredentials:true})
+          toast.info(data.message);
+          return data.result;
+        } catch (e){
+          console.log(e);
+          toast.error("Failed to like article! Try later.")
+        }
+      }
     }),
     {
       name: "user-storage",

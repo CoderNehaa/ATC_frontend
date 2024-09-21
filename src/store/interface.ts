@@ -53,3 +53,10 @@ export interface ChatInterface{
     receiver?:any
 }
   
+export interface CommentInterface{
+    id?:number,
+    userId:number,
+    articleId:number,
+    comment:string,
+    commentDate?:Date
+}

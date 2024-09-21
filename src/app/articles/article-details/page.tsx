@@ -4,20 +4,46 @@ import styles from "@/styles/details.module.scss";
 import author from "@/assets/author.png";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Article, Keyword } from "@/store/interface";
+import { Article, CommentInterface, Keyword } from "@/store/interface";
 import usePublicStore from "@/store/publicStore";
 import usePrivateStore from "@/store/privateStore";
 import userDemoImage from "@/assets/author.png";
 import { Button } from "@/components/ui/button";
 
 export const ArticleDetails = () => {
-  const { getArticleDetails, articles } = usePublicStore();
-  const { currentUser } = usePrivateStore();
+  const { getArticleDetails } = usePublicStore();
   const [article, setArticle] = useState<Article>();
   const searchParams = useSearchParams();
   const id = searchParams.get("a");
-  const {addFavoriteArticle, removeFavoriteArticle} = usePrivateStore();
-  const [comment, setComment] = useState("");
+  const {addFavoriteArticle, removeFavoriteArticle, currentUser, addComment, toggleLikes} = usePrivateStore();
+  const [text, setText] = useState("");
+  const [upScroll, setUpScroll] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 10;
+      setUpScroll(scrolledToBottom);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  function handleDownScroll() {
+    window.scrollBy({
+      top: window.innerHeight * 0.9,
+      behavior: "smooth",
+    });
+  }
+
+  function handleUpScroll() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 
   async function fetchData(id: number) {
     const data: Article | null = await getArticleDetails(
@@ -41,30 +67,46 @@ export const ArticleDetails = () => {
   }, []);
 
  async function handleBookmark(){
-    if(article){
+    if(article && article.id){
       if(article.isFav){
         const result:boolean = await removeFavoriteArticle(article);
         if(result){
           article.isFav = false;
+          fetchData(article.id);
         }
       } else {
         const result:boolean = await addFavoriteArticle(article);
         if(result){
           article.isFav = true;
+          fetchData(article.id);
         }
       }
+    } 
+  }
+
+
+
+  async function createComment(){
+    if(currentUser && article && article.id){
+      const newComment:CommentInterface ={
+        userId:currentUser.id,
+        comment:text,
+        articleId:article.id,
+      }
+      const result = await addComment(newComment);
+      if(result){
+          fetchData(article.id);
+          setText("");
+      }
     }
-    
-  }
-
-  function handleLike(){
-
-  }
-
-  function createComment(){
-
   }
   
+  function handlelike(){
+    if(article && article.id){
+      toggleLikes(article.id);
+    }
+  }
+
   return (
     <div className={styles.detailsOuterPage}>
       {article ? (
@@ -84,7 +126,7 @@ export const ArticleDetails = () => {
             <div className={styles.iconBox}>
               <i className="fa-solid fa-feather"></i>
               <span className="italic mr-6">{formatDate()}</span>
-              <i className="fa-regular fa-bookmark"></i>
+              <span onClick={handleBookmark}><i className={`fa-${article.isFav?"solid":"regular"} fa-bookmark`}></i></span>
               {/* <i className="fa-solid fa-share-nodes"></i> */}
             </div>
           </div>
@@ -118,11 +160,9 @@ export const ArticleDetails = () => {
             className={styles.articleBody}
             dangerouslySetInnerHTML={{ __html: article.content }}></div>
           <div className="mt-4">
-            <span className="mr-4 text-xl">
+            <span className="mr-4 text-xl" onClick={handlelike}>
               <i
-                className={`fa-${
-                  article.isFav ? "solid" : "regular"
-                } fa-heart mr-1`}></i>
+                className={`fa-solid fa-heart mr-1`}></i>
               {article.likes}
             </span>
             <span className="mr-4 text-xl">
@@ -140,10 +180,10 @@ export const ArticleDetails = () => {
               <textarea 
                 className="w-full" 
                 placeholder="Write comment" 
-                value={comment} 
-                onChange={(e) => setComment(e.target.value)} />
+                value={text} 
+                onChange={(e) => setText(e.target.value)} />
               <span className="absolute right-2">
-              <Button variant={"outline"}>Add</Button></span>
+              <Button variant={"outline"} onClick={createComment}>Add</Button></span>
             </div>
             {article.comments && article.comments.length ? (
               <div>
@@ -174,9 +214,17 @@ export const ArticleDetails = () => {
           </div>
         </div>
       ) : null}
-      <button className="scrollBtn">
-        <i className="fa-solid fa-arrow-down"></i>
-      </button>
+      {!upScroll && (
+        <button className="scrollBtn" onClick={handleDownScroll}>
+          <i className="fa-solid fa-arrow-down"></i>
+        </button>
+      )}
+
+      {upScroll && (
+        <button className="scrollBtn" onClick={handleUpScroll}>
+          <i className="fa-solid fa-arrow-up"></i>
+        </button>
+      )}
     </div>
   );
 };
